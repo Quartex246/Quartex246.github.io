@@ -34,7 +34,7 @@ Blog By Quartex
 <p>本文章长期更新（最后更新于2026.4.2）</p>
 <span id="more"></span>
 
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>古人有云，温故而知新，学习做笔记</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>古人有云，温故而知新，学习做笔记</p>
 <p>考虑到应该学习一点其他东西了，所以打算学习Godot引擎做出全宇宙爆款的胎死腹中音乐游戏，这个是古话了</p>
 <p>其实在选择学什么之前，也在考虑是选择Godot还是市场占有率更高的Unity. 但是Godot有以下吸引我的点</p>
 <ul>
@@ -52,7 +52,7 @@ Blog By Quartex
 <p>我懒得对这一条进行解释。</p>
 <p>其他的暂时没想出来，我还没有达到从技术方面对他们进行剖析的水平。如果未来水平足够或者需求提高，再考虑学习其他引擎</p>
 <p>本文基于Clear Code的《Godot4终极入门教程》，在这里附上<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1tN4y1U71J">B站链接</a>。</p>
-<h1 id="关键概念"><a href="#关键概念" class="headerlink" title="关键概念"></a>关键概念</h1><h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><p><strong>节点 (Node)</strong> 是Godot的一个重要的概念。场景是一个节点，玩家是一个节点，很多东西都是节点。整个Godot就是一个节点大世界。</p>
+<h2 id="关键概念"><a href="#关键概念" class="headerlink" title="关键概念"></a>关键概念</h2><h3 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h3><p><strong>节点 (Node)</strong> 是Godot的一个重要的概念。场景是一个节点，玩家是一个节点，很多东西都是节点。整个Godot就是一个节点大世界。</p>
 <p>在Godot中基本要做的就是制作各种节点然后将他们联系在一块，个人感觉可以将它们视作多个对象。</p>
 <div align="center">
   <img src="main.png" alt="主页面">
@@ -61,13 +61,13 @@ Blog By Quartex
 <p>图为Godot的主界面，按下<strong>Ctrl + A</strong>来增加新的节点。</p>
 <p>节点使用<strong>帕斯卡命名法</strong>，即每个单词<strong>首字母大写</strong>。而其他内容使用<strong>蛇形命名</strong>，即<strong>所有字母小写，用下划线链接</strong>。Godot会自动帮你做好这些内容。</p>
 <p>节点具有<strong>图层优先级</strong>，类似于Ps，越往下面图层就会越优先。</p>
-<h2 id="父节点与子节点"><a href="#父节点与子节点" class="headerlink" title="父节点与子节点"></a>父节点与子节点</h2><p>节点具有包含关系。可以将一个节点B归属到另一个节点A. 此时A为B的<strong>父节点</strong>，反之为<strong>子节点</strong>。</p>
+<h3 id="父节点与子节点"><a href="#父节点与子节点" class="headerlink" title="父节点与子节点"></a>父节点与子节点</h3><p>节点具有包含关系。可以将一个节点B归属到另一个节点A. 此时A为B的<strong>父节点</strong>，反之为<strong>子节点</strong>。</p>
 <p>父节点中对属性的改变都会对子节点造成影响，而反之不然。</p>
 <p>可以右键选择父节点增加子节点。如果要把已有的节点作为子节点，按下<strong>Ctrl + Shift + A</strong>或者点击“实例化子节点”选项，将会列出所有可以作为子节点的其他节点</p>
-<h1 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h1><p>Godot的原生语言为GDScript，虽然宣传说的是类似Python，但准确来讲，他就是Python. 除了部分关键词有区别外，其他的基本如出一辙。</p>
+<h2 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h2><p>Godot的原生语言为GDScript，虽然宣传说的是类似Python，但准确来讲，他就是Python. 除了部分关键词有区别外，其他的基本如出一辙。</p>
 <p>游戏中的所有属性都可以在属性面板中找到，将鼠标选在其上方将会自动显示对应的变量名称。</p>
 <p>由于Markdown没有原生GDScript支持，所以代码块将会使用Python.</p>
-<h2 id="语言特点"><a href="#语言特点" class="headerlink" title="语言特点"></a>语言特点</h2><ul>
+<h3 id="语言特点"><a href="#语言特点" class="headerlink" title="语言特点"></a>语言特点</h3><ul>
 <li><p>数据类型：常见的数据类型都有覆盖，数组覆盖了元组和列表。</p>
 </li>
 <li><p>两种变量：<strong>普通变量</strong>和<strong>常量</strong></p>
@@ -86,7 +86,7 @@ Blog By Quartex
 <li><p><strong>类</strong>：和我的想法差不多，有功能的节点可视为一个类</p>
 </li>
 </ul>
-<h2 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h2><p>游戏默认有两个内置函数，且都以下划线开头。两个函数如下所示</p>
+<h3 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h3><p>游戏默认有两个内置函数，且都以下划线开头。两个函数如下所示</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func _ready() -&gt; void:</span><br><span class="line">	$logo.rotation_degrees = <span class="number">90</span></span><br><span class="line"></span><br><span class="line">func _process(delta: <span class="built_in">float</span>) -&gt; void:</span><br><span class="line">	<span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 
 <p><code>_ready</code>，我打算叫他<strong>预备函数</strong>，在节点准备好后就会开始运行</p>
@@ -96,7 +96,7 @@ Blog By Quartex
 
 <p>输入后，自动补全会列出所有可用的子节点。</p>
 <p>关于GDScript更详细的学习内容，可以查看我发布的另一篇基于Brackeys的快速入门GDScript课程的笔记</p>
-<h1 id="增量时间（Delta）"><a href="#增量时间（Delta）" class="headerlink" title="增量时间（Delta）"></a>增量时间（Delta）</h1><p>上文提到了运行函数是每帧执行的操作，但这也带来一个问题。</p>
+<h2 id="增量时间（Delta）"><a href="#增量时间（Delta）" class="headerlink" title="增量时间（Delta）"></a>增量时间（Delta）</h2><p>上文提到了运行函数是每帧执行的操作，但这也带来一个问题。</p>
 <p>假设一个物体每帧移动10个像素，在30帧&#x2F;秒内将会移动30 * 10 &#x3D; 300像素。但如果我用的是神威太湖之光来打游戏，帧数可能会到60帧，120帧甚至3000帧&#x2F;秒，那么这个物体将会移动600个像素甚至更高，而过高的移动速度会让游戏根本没法玩。</p>
 <p>我刚好遇到一个例子，就是在我的电脑上玩DJMAX TECHNIKA 2时，倒计时会数的很快。查了贴吧之后才知道这是因为该游戏原先为街机开发，用的是一块60Hz的触摸屏。而我的电脑屏幕刷新率很高，从而导致运行速度过快</p>
 <p>因此，为了解决在不同帧率的机器上有一致的运行速度，我们需要一个统一的时间间隔，而这就是增量时间</p>
@@ -139,7 +139,7 @@ Blog By Quartex
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pos.x += speed * delta</span><br><span class="line">$logo.rotation_degrees += <span class="number">45</span> * delta</span><br></pre></td></tr></table></figure>
 
 <p>后续的很多函数中会在构建中自动运用增量式案的运动，所以不用一直考虑增量时间，不过，这仍然是一个重要的概念</p>
-<h1 id="获取输入"><a href="#获取输入" class="headerlink" title="获取输入"></a>获取输入</h1><p>这一部分在GDScript笔记中亦有记载，这里复制粘贴一下</p>
+<h2 id="获取输入"><a href="#获取输入" class="headerlink" title="获取输入"></a>获取输入</h2><p>这一部分在GDScript笔记中亦有记载，这里复制粘贴一下</p>
 <p>要获取输入有两个步骤：</p>
 <ol>
 <li>创建映射事件</li>
@@ -157,7 +157,7 @@ Blog By Quartex
 <p>可以参考以下代码</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置direction变量，调用函数</span></span><br><span class="line">var direction = Input.get_vector(<span class="string">&quot;left&quot;</span>, <span class="string">&quot;right&quot;</span>, <span class="string">&quot;up&quot;</span>, <span class="string">&quot;down&quot;</span>) </span><br><span class="line"><span class="comment"># 通过乘以运动速度和增量时间，让精灵在每一帧都会运动</span></span><br><span class="line">position = direction * <span class="number">200</span> * delta</span><br></pre></td></tr></table></figure>
 
-</div></article><aside class="post-widget"><h4>In this article</h4><nav class="post-toc-wrap" id="post-toc"><ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%89%8D%E8%A8%80"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5"><span class="post-toc-number">2.</span> <span class="post-toc-text">关键概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%8A%82%E7%82%B9"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">节点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%88%B6%E8%8A%82%E7%82%B9%E4%B8%8E%E5%AD%90%E8%8A%82%E7%82%B9"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">父节点与子节点</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%AF%AD%E8%A8%80"><span class="post-toc-number">3.</span> <span class="post-toc-text">语言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AF%AD%E8%A8%80%E7%89%B9%E7%82%B9"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">语言特点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">内置函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%A2%9E%E9%87%8F%E6%97%B6%E9%97%B4%EF%BC%88Delta%EF%BC%89"><span class="post-toc-number">4.</span> <span class="post-toc-text">增量时间（Delta）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E8%BE%93%E5%85%A5"><span class="post-toc-number">5.</span> <span class="post-toc-text">获取输入</span></a></li></ol></nav></aside></div><footer class="footer-nav"><div class="footer"><div class="back-top" id="back-top" title="Back to top"><i class="icon icon-chevron-bar-up"></i></div><div class="footer-content"><div class="footer-links"><div class="footer-links-column"><p><a title="友情链接" href="https://quartexounds.xyz/friendlink">友情链接</a></p></div></div><div><span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">?</span>
+</div></article><aside class="post-widget"><h4>In this article</h4><nav class="post-toc-wrap" id="post-toc"><ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%89%8D%E8%A8%80"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5"><span class="post-toc-number">2.</span> <span class="post-toc-text">关键概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8A%82%E7%82%B9"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">节点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%88%B6%E8%8A%82%E7%82%B9%E4%B8%8E%E5%AD%90%E8%8A%82%E7%82%B9"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">父节点与子节点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AF%AD%E8%A8%80"><span class="post-toc-number">3.</span> <span class="post-toc-text">语言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AF%AD%E8%A8%80%E7%89%B9%E7%82%B9"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">语言特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">内置函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A2%9E%E9%87%8F%E6%97%B6%E9%97%B4%EF%BC%88Delta%EF%BC%89"><span class="post-toc-number">4.</span> <span class="post-toc-text">增量时间（Delta）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E8%BE%93%E5%85%A5"><span class="post-toc-number">5.</span> <span class="post-toc-text">获取输入</span></a></li></ol></nav></aside></div><footer class="footer-nav"><div class="footer"><div class="back-top" id="back-top" title="Back to top"><i class="icon icon-chevron-bar-up"></i></div><div class="footer-content"><div class="footer-links"><div class="footer-links-column"><p><a title="友情链接" href="https://quartexounds.xyz/friendlink">友情链接</a></p></div></div><div><span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">?</span>
 PV
 </span><span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">?</span>
 UV</span></div>
