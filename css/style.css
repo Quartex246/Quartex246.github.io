@@ -2773,6 +2773,19 @@ s {
     color: #cdcdcd;
   }
 }
+.tags-wrap .one-tag-list .tag-text .tag-count {
+  font-size: 14px;
+}
+@media (prefers-color-scheme: light) {
+  .tags-wrap .one-tag-list .tag-text .tag-count {
+    color: #666;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .tags-wrap .one-tag-list .tag-text .tag-count {
+    color: #9a9a9a;
+  }
+}
 .tags-wrap .one-tag-list .post-preview {
   margin-bottom: 0.5em;
   display: grid;
