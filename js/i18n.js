@@ -34,6 +34,11 @@
       'menu.学习': '学习',
       'menu.音乐': '音乐',
       'menu.随笔': '随笔',
+      'menu.友情链接': '友情链接',
+      'menu.更新日志': '更新日志',
+      'link.关于': '/about',
+      'link.友情链接': '/friendlink',
+      'link.更新日志': '/changelog',
       'lang_empty': '暂无该语言的文章'
     },
     'en': {
@@ -68,6 +73,11 @@
       'menu.学习': 'Study',
       'menu.音乐': 'Music',
       'menu.随笔': 'Essays',
+      'menu.友情链接': 'Friends',
+      'menu.更新日志': 'Changelog',
+      'link.关于': '/en/about',
+      'link.友情链接': '/en/friendlink',
+      'link.更新日志': '/en/changelog',
       'lang_empty': 'No articles in this language yet'
     }
   };
@@ -104,8 +114,18 @@
 
     document.querySelectorAll('[data-i18n-menu]').forEach(function (el) {
       var key = el.getAttribute('data-i18n-menu');
-      var text = i18nMap[lang] && i18nMap[lang]['header_menu.' + key];
+      var langMap = i18nMap[lang];
+      var text = null;
+      if (langMap) {
+        text = langMap['menu.' + key] || langMap['header_menu.' + key];
+      }
       if (text != null) el.textContent = text;
+    });
+
+    document.querySelectorAll('[data-i18n-link]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-link');
+      var url = i18nMap[lang] && i18nMap[lang]['link.' + key];
+      if (url != null) el.href = url;
     });
 
     document.querySelectorAll('.lang-toggle').forEach(function (btn) {
@@ -113,7 +133,7 @@
     });
 
     var hasVisible = false;
-    document.querySelectorAll('[data-lang]').forEach(function (el) {
+    document.querySelectorAll('[data-lang]:not(#post)').forEach(function (el) {
       var elLang = el.getAttribute('data-lang');
       if (!elLang) { el.style.display = ''; return; }
       if (elLang === lang) {
@@ -142,7 +162,19 @@
     document.querySelectorAll('.lang-toggle').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var current = document.documentElement.lang;
-        applyLang(current === 'zh-cn' ? 'en' : 'zh-cn');
+        var target = current === 'zh-cn' ? 'en' : 'zh-cn';
+
+        var articleEl = document.querySelector('[data-lang-alt-url]');
+        if (articleEl) {
+          var altUrl = articleEl.getAttribute('data-lang-alt-url');
+          if (altUrl) {
+            localStorage.setItem('blog_lang', target);
+            window.location.href = altUrl;
+            return;
+          }
+        }
+
+        applyLang(target);
       });
     });
   });
