@@ -39,6 +39,11 @@
       'link.关于': '/about',
       'link.友情链接': '/friendlink',
       'link.更新日志': '/changelog',
+      'link.技术分享': '/categories/技术分享/',
+      'link.评测': '/categories/评测/',
+      'link.学习': '/categories/学习/',
+      'link.音乐': '/categories/音乐/',
+      'link.随笔': '/categories/随笔/',
       'lang_empty': '暂无该语言的文章'
     },
     'en': {
@@ -78,6 +83,11 @@
       'link.关于': '/en/about',
       'link.友情链接': '/en/friendlink',
       'link.更新日志': '/en/changelog',
+      'link.技术分享': '/categories/Tech/',
+      'link.评测': '/categories/Reviews/',
+      'link.学习': '/categories/Learning/',
+      'link.音乐': '/categories/Music/',
+      'link.随笔': '/categories/Essays/',
       'lang_empty': 'No articles in this language yet'
     }
   };
@@ -142,6 +152,22 @@
       } else {
         el.style.display = 'none';
       }
+    });
+
+    // 按语言过滤侧边栏 Tags 组件
+    document.querySelectorAll('[data-langs]').forEach(function (el) {
+      var langs = (el.getAttribute('data-langs') || '').split(/\s+/);
+      el.style.display = langs.indexOf(lang) !== -1 ? '' : 'none';
+    });
+
+    // 分类等页面：按页面自身语言显示文章，
+    // 避免保存的语言与页面语言不一致时出现空白
+    document.querySelectorAll('[data-lang-scope]').forEach(function (scope) {
+      var scopeLang = scope.getAttribute('data-lang-scope');
+      if (!scopeLang) return;
+      scope.querySelectorAll('[data-lang]').forEach(function (el) {
+        el.style.display = el.getAttribute('data-lang') === scopeLang ? '' : 'none';
+      });
     });
 
     document.querySelectorAll('.lang-empty-message').forEach(function (el) {
