@@ -1,0 +1,142 @@
+<html lang="zh-cn"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="Using the Lenovo ThinkPad Chromebook 13 as an example, this guide details how to disable write protection, flash a third-party BIOS, and install Windows 10 LTSC, along with reference methods for other models. Flashing carries risk — verify your device before you start."/><title>Guide to Installing Windows on a Chromebook
+-
+Blog By Quartex</title><link rel="icon" href="/img/favicon.ico"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/helpers.css">
+
+<script src="/js/clipboard/clipboard.min.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+<script async="async" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="loading-wrapper" data-loading="data-loading"><div class="loading"><span></span><span></span><span></span></div></div><div class="page" data-filter="data-filter"><div class="head" data-show="data-show"><header class="head-header"><div class="head-author"><a class="head-author-link" href="/">Blog By Quartex</a></div><div class="head-right"><button class="bar-wrap" id="bar-wrap-toggle" title="menu button"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button><div class="head-item"><a class="search-button head-item-link"><span data-i18n="nav.search">Search</span>
+<i class="icon icon-search"></i></a></div><div class="head-item"><a class="head-item-link" href="/about" data-i18n-link="关于"><span data-i18n-menu="关于">关于</span></a></div><div class="head-item"><button class="lang-toggle head-item-link">EN</button></div></div></header>
+<div class="menubar-head" id="menubar"><ul class="menubar-ul"><li class="menubar-item" data-border="data-border"></li><li class="menubar-item"><i class="icon icon-archive"></i>
+<a class="menubar-link" href="/archives"><span data-i18n-menu="Archives">Archives</span></a></li><li class="menubar-item" data-border="data-border"></li><li class="menubar-item"><a class="menubar-link" href="/about" data-i18n-link="关于"><span data-i18n-menu="关于">关于</span></a></li></ul><div class="menu-search-box search-button"><div data-i18n="nav.search">搜索</div>
+<i class="icon icon-search"></i></div><div class="menubar-item"><button class="lang-toggle head-item-link">EN</button></div></div></div><div class="main" data-page="post"><article class="post" id="post" data-lang="en" data-lang-alt-url="/2026/03/20/zh-cn/Chromebook/"><header class="post-head"><h1 class="post-title"><a class="title" href="/2026/03/20/en/Chromebook/">Guide to Installing Windows on a Chromebook</a></h1></header><div class="post-meta"><div class="post-date"><time class="post-time" itemprop="datePublished" title="2026-03-21 00:00:00" datetime="2026-03-20T16:00:00.000Z">2026-03-21</time></div>|
+<div class="post-tag"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Chromebook/" rel="tag">Chromebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flashing/" rel="tag">Flashing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li></ul></div>
+<div class="post-visit"><span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span><span data-i18n="article.hits">访问</span></span></div></div><div class="post-info"><div class="post-word-count">This article contains 1,964 words.</div>
+</div><div class="article-entry" itemprop="articleBody"><blockquote>
+<p>Using the Lenovo ThinkPad Chromebook 13 as an example to demonstrate how to replace the BIOS and install common operating systems, with reference methods for other models.</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>This article was originally written in July 2025 and was intended to be the first post on my blog based on NotionNext. However, due to various reasons, it was abandoned. Today, encouraged by a friend, I’m starting a new blog and using this article as its first post.</p>
+<p>It’s recommended to cross-reference other articles to perfect your flashing steps.</p>
+<p>Flashing your device carries risks — bricking is a real possibility. Make sure you have a thorough understanding of your device. The author is not responsible for any issues resulting from incorrect operation.</p>
+<h2 id="Goals"><a href="#Goals" class="headerlink" title="Goals"></a>Goals</h2><ol>
+<li><p>Install a third-party BIOS (based on Coreboot) on the Chromebook</p>
+</li>
+<li><p>Get Windows 10 LTSC running on the Chromebook</p>
+</li>
+<li><p>Compress the system, install drivers, and optimize</p>
+</li>
+</ol>
+<h2 id="Step-1-Enable-Developer-Mode"><a href="#Step-1-Enable-Developer-Mode" class="headerlink" title="Step 1: Enable Developer Mode"></a>Step 1: Enable Developer Mode</h2><p>If your device is still running ChromeOS, you’ll need to enable Developer Mode first to proceed with the following steps.</p>
+<p>Power on the device, then <strong>simultaneously press Power + ESC + Refresh</strong> to enter Recovery Mode. In Recovery Mode, the screen will display “ChromeOS is missing or damaged.” Press Ctrl+D, and the screen will prompt “Turn OS verification off.” Follow the instructions and reboot. Your Chromebook will now enter Developer Mode. Note that this operation will wipe all data on the device and restore it to factory settings.</p>
+<p>In Developer Mode, the system will display a “OS verification is off” warning screen on every boot. Press Ctrl+D again on this screen to proceed into the system.</p>
+<h2 id="Step-2-Disable-Write-Protection"><a href="#Step-2-Disable-Write-Protection" class="headerlink" title="Step 2: Disable Write Protection"></a>Step 2: Disable Write Protection</h2><p>Chromebooks have always had a write protection mechanism. Different generations of devices use different mechanisms. Currently, the most authoritative source I’ve found is the Chrultrabook documentation, which lists methods for disabling write protection on various models.</p>
+<p><a target="_blank" rel="noopener" href="https://docs.chrultrabook.com/docs/devices.html">Device Support Status | Chrultrabook Docs</a></p>
+<h3 id="Write-Protection-Screw"><a href="#Write-Protection-Screw" class="headerlink" title="Write Protection Screw"></a>Write Protection Screw</h3><p>My device uses a write protection screw. At the end of the article, I’ll provide a link to the official repair guide for this device. Follow the index to disassemble.</p>
+<p>First, shut down the device and remove the screws on the back cover. Three screws are hidden under three black rubber feet — pry them open with a screwdriver to access the screws. The screws have a anti-loss design, so just loosen them.</p>
+<p>Lift the bottom cover and follow the documentation to disassemble until you can remove the motherboard. The write protection screw is located on the back of the motherboard. Remove it. Then reassemble the components, close the back cover, and reboot.</p>
+<h3 id="Disconnect-the-Battery"><a href="#Disconnect-the-Battery" class="headerlink" title="Disconnect the Battery"></a>Disconnect the Battery</h3><p>On newer devices, write protection can be disabled by disconnecting the battery ribbon cable, as Google has integrated the security chip into the cable on these machines. Simply shut down the computer completely, remove the back cover, disconnect the battery, plug in the power adapter, and turn it on to proceed to the next step.</p>
+<h3 id="Short-a-Jumper"><a href="#Short-a-Jumper" class="headerlink" title="Short a Jumper"></a>Short a Jumper</h3><p>Some devices don’t support either of the above methods. You’ll need to locate a jumper hole inside the machine and short it to disable write protection. I haven’t dealt with these devices myself, so I won’t elaborate — for it’s extremely tricky. But the best method is still the next one.</p>
+<h3 id="Using-SuzyQable-for-Hacking-Recommended"><a href="#Using-SuzyQable-for-Hacking-Recommended" class="headerlink" title="Using SuzyQable for Hacking (Recommended)"></a>Using SuzyQable for Hacking (Recommended)</h3><p>Too long, here’s a link directly:</p>
+<p><a target="_blank" rel="noopener" href="https://hollywoo.de/posts/chrultra/">Chromebook使用SuzyQable CCD免拆机解锁及刷机教程 – Hollywoo.de</a></p>
+<p>The advantage of using SuzyQable is that you don’t need to open the back cover and mess with the hardware — just plug it into the computer and go. These cables are cheap on Xianyu(some kind of Chinese eBay), around 20-30 RMB. If you want to save yourself some trouble, buy a cable, grab a computer running Linux, and you’re ready to start.</p>
+<p>(I think you can use it to hack the device by connecting the cable to itself, haven’t tried it though.)</p>
+<p>(You don’t necessarily need a fully installed Linux — a Live environment running from a USB stick works too.)</p>
+<h2 id="Step-3-Flash-Third-Party-BIOS-Using-a-Script"><a href="#Step-3-Flash-Third-Party-BIOS-Using-a-Script" class="headerlink" title="Step 3: Flash Third-Party BIOS Using a Script"></a>Step 3: Flash Third-Party BIOS Using a Script</h2><p>We’ll use Mrchromebox’s script to flash a third-party BIOS.</p>
+<p>Boot into the system, then press Ctrl + Alt + T. A window will pop up — this is ChromeOS’s built-in terminal, Crosh. Type <code>shell</code> in crosh and press Enter, then paste the following script (make sure your device can access GitHub):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span>; curl -LO mrchromebox.tech/firmware-util.sh &amp;&amp; <span class="built_in">sudo</span> bash firmware-util.sh</span><br></pre></td></tr></table></figure>
+
+<p>Select option 2: Install &#x2F; Update Full UEFI Firmware (enter the number 2). Then enter <code>y</code> for all the system warnings. You can also save the original BIOS to external storage.</p>
+<p>It’s worth noting that after flashing this BIOS, you will no longer be able to boot ChromeOS. If you’ve saved the original BIOS, you can flash it back by installing a Linux system and using its terminal.</p>
+<p><del>Although I think flashing back to a device whose final version is 115 seems a bit pointless.</del></p>
+<p>Goal 1 achieved.</p>
+<p>If you don’t have a proper internet connection, there’s a domestic mirror link at the end of the article provided by a Chinese developer — you can use that to install the firmware instead.</p>
+<p>For other ChromeOS devices: if your system version is 117 or higher, you must log in as <code>chronos</code> from the VT2 terminal to run the above script.</p>
+<p>If a password is required, try entering <code>test0000</code> and press Enter. If the password doesn’t work, you can log in as <code>root</code> and replace <code>cd;</code> at the beginning of the script with <code>cd /tmp</code>.</p>
+<p>To open VT2: press Ctrl + Alt + F2 (right arrow) in the system.</p>
+<h2 id="Step-4-Install-the-Operating-System"><a href="#Step-4-Install-the-Operating-System" class="headerlink" title="Step 4: Install the Operating System"></a>Step 4: Install the Operating System</h2><p>At this point, the process is no different from a standard OS installation. Prepare a USB drive of at least 8GB, download the <strong>Windows 10 Enterprise LTSC</strong> image, and use Rufus (or your preferred tool) to write the image to the USB drive.</p>
+<p>After booting, press ESC to enter Boot Options, then select your USB drive from Boot Manager as the boot device. Follow the on-screen instructions. Once Windows finishes its setup, your system will be installed.</p>
+<p>Note that during installation, your touchpad and touchscreen drivers (low-end models with i3 processors don’t have a touchscreen) will be missing, so remember to connect an external mouse — otherwise you won’t be able to proceed with the installation.</p>
+<p>Goal 2 achieved.</p>
+<h2 id="Step-5-System-Slimming-and-Driver-Installation"><a href="#Step-5-System-Slimming-and-Driver-Installation" class="headerlink" title="Step 5: System Slimming and Driver Installation"></a>Step 5: System Slimming and Driver Installation</h2><p>Coolstar is a developer who has provided a lot of help for Chromebook tinkering. Their personal website has a comprehensive guide for installing Windows on Chromebooks, along with necessary drivers.</p>
+<p>Links to Coolstar’s relevant drivers for this machine will be provided at the end of the article.</p>
+<p>Visit the website, find the codename for your device (my device’s codename is Sentry), then download the runtime, touchpad driver, touchscreen driver, and key binding utility. The sound card driver needs to be purchased and installed separately.</p>
+<p>Install the runtime first, then the drivers. The key binding utility will remap the top row of function keys on the Chromebook’s characteristic keyboard to act as F1-F10. Hold left Ctrl and press a function key to use their original functionality.</p>
+<p>Then, run PowerShell as Administrator and execute the following command:</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compact.exe /compactos:always</span><br></pre></td></tr></table></figure>
+
+<p>Wait a moment, and the system compression will complete. At this point, the system setup is done.</p>
+<h2 id="Step-6-Miscellaneous"><a href="#Step-6-Miscellaneous" class="headerlink" title="Step 6: Miscellaneous"></a>Step 6: Miscellaneous</h2><p>The following content is based on my personal preferences — feel free to follow as needed.</p>
+<h3 id="Caps-Lock-Key"><a href="#Caps-Lock-Key" class="headerlink" title="Caps Lock Key"></a>Caps Lock Key</h3><p>On Chrome devices, the Caps Lock position is normally set to the Search key, which defaults to the Start key in Windows. While holding Shift and pressing a letter will still output uppercase, some people may find it hard to accept. You can choose to remap the Search key back to Caps Lock.</p>
+<p>I recommend using the Fangling CB Toolbox, which offers many customizable features for ChromeOS devices flashed to Windows. The author’s introduction and download link are at the end.</p>
+<p>Run it as Administrator, select the option to remap the Search key to Caps Lock, and restart.</p>
+<p>Of course, if you are reading this in English, I recommend you to find some other tools since its written in Chinese. In fact, you should also ignore the article about SuzyQable mentioned below. It is frustrating to make localizations. Search it by yourself.</p>
+<h3 id="Microsoft-Store"><a href="#Microsoft-Store" class="headerlink" title="Microsoft Store"></a>Microsoft Store</h3><p>The LTSC version of Windows is very stripped down, retaining only essential software. If you want to conveniently install original UWP software, you need the Microsoft Store.</p>
+<p>Open PowerShell as Administrator and enter the following command:</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsreset <span class="literal">-i</span></span><br></pre></td></tr></table></figure>
+
+<p>Wait thirty seconds.</p>
+<p>Note that this method will change your system from <strong>Windows 10 Enterprise LTSC</strong> to <strong>Windows 10 IoT Enterprise LTSC</strong>.</p>
+<p>Microsoft’s official explanation is that the two differ only in licensing, with no other differences. Legitimate users should use with caution.</p>
+<h2 id="Random-Thoughts"><a href="#Random-Thoughts" class="headerlink" title="Random Thoughts"></a>Random Thoughts</h2><p>Around 2023, for various reasons, I decided to buy a Chromebook. I remember the model clearly: HP Chromebook X360 11 G2 EE. It accompanied me through my last year of high school. How time flies.</p>
+<p>Chromebook does not sell in China mainland. Since there are no Internet access to Google, you can’t activate the device. Which leads to a result of product like these can be purchased in second handed markets in a reasonably good price than other products with similar specs. I bought it as a toy not an educational device. That is not allowed in schools in China.</p>
+<p>I later sold it; the buyer said they needed it for touch screen testing. Hope everything’s going well for them.</p>
+<p>I quite like the Chromebook philosophy — using the cloud and PWAs to achieve PC-like functionality. In fact, many pieces of software are starting to develop web versions. From what I’ve seen, Xiaohongshu, WeChat File Transfer Assistant, and TikTok all have web apps (even the CET-4&#x2F;6 exam papers are PWAs), even if they’re essentially just tabs. The benefit is the ability to accomplish more with lower-end hardware. (Despite Chrome’s appalling performance overhead.) I even once believed that future personal work devices should be exactly like this — all you need is an internet connection.</p>
+<p>Unfortunately, the countless failures of cloud PCs have already told us that the market for cloud computers is narrow. Even in Chromebook’s home country of the US, it faces confrontation from the two traditional players: Windows and macOS. ChromeOS almost seems like it’s become the equivalent of those children’s learning tablets.</p>
+<p>And it’s undeniable that ChromeOS’s performance delivery is a waste on high-end machines. High-end ChromeOS machines almost always end up heading toward Windows.</p>
+<p>My device (<strong>Lenovo ThinkPad Chromebook 13</strong>) is equipped with an Intel i5-6300U low voltage processor, a 13-inch 1080p touchscreen, and the seller also soldered on a 128GB eMMC. While it’s not a high-end device, compared to devices like the ThinkPad X270 with the same processor, or even the X1 Carbon, the price of 350 RMB is quite appealing.</p>
+<p>This is my second ThinkPad and my fifth Chromebook (after the HP: Lenovo Chromebook Duet and Lenovo IdeaPad Flex 3). The previous one had only 4+16GB of memory — flashing Windows on that was a marathon of torture. The seller also overstated the battery health (90+ down to 73), and the battery life was atrocious. I later sold it to a friend for 200 RMB. Hope everything’s going well for them.</p>
+<h2 id="Related-Links"><a href="#Related-Links" class="headerlink" title="Related Links"></a>Related Links</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://download.lenovo.com/ibmdl/pub/pc/pccbbs/mobiles_pdf/tp13chrome_hmm_en_sp40j47620.pdf">ThinkPad Chromebook 13 Repair Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1EW4y1o7Z4">Fangling Toolbox Introduction and Download</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.coolstar.org/chromebook/windows-install.html?device=Sentry">Coolstar’s Installation Guide and Driver Downloads (for Sentry)</a></li>
+<li><a target="_blank" rel="noopener" href="https://cbri.tech/?p=357">Mrchromebox Firmware Script Domestic Mirror – Chromebook Research Institute</a></li>
+</ul>
+<p>(Revised on 2026.04.18)</p>
+</div></article><aside class="post-widget"><h4 data-i18n="toc.title">In this article</h4><nav class="post-toc-wrap" id="post-toc"><ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Preface"><span class="post-toc-number">1.</span> <span class="post-toc-text">Preface</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Goals"><span class="post-toc-number">2.</span> <span class="post-toc-text">Goals</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Step-1-Enable-Developer-Mode"><span class="post-toc-number">3.</span> <span class="post-toc-text">Step 1: Enable Developer Mode</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Step-2-Disable-Write-Protection"><span class="post-toc-number">4.</span> <span class="post-toc-text">Step 2: Disable Write Protection</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Write-Protection-Screw"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">Write Protection Screw</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Disconnect-the-Battery"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">Disconnect the Battery</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Short-a-Jumper"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">Short a Jumper</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Using-SuzyQable-for-Hacking-Recommended"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">Using SuzyQable for Hacking (Recommended)</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Step-3-Flash-Third-Party-BIOS-Using-a-Script"><span class="post-toc-number">5.</span> <span class="post-toc-text">Step 3: Flash Third-Party BIOS Using a Script</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Step-4-Install-the-Operating-System"><span class="post-toc-number">6.</span> <span class="post-toc-text">Step 4: Install the Operating System</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Step-5-System-Slimming-and-Driver-Installation"><span class="post-toc-number">7.</span> <span class="post-toc-text">Step 5: System Slimming and Driver Installation</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Step-6-Miscellaneous"><span class="post-toc-number">8.</span> <span class="post-toc-text">Step 6: Miscellaneous</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Caps-Lock-Key"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">Caps Lock Key</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Microsoft-Store"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">Microsoft Store</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Random-Thoughts"><span class="post-toc-number">9.</span> <span class="post-toc-text">Random Thoughts</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Related-Links"><span class="post-toc-number">10.</span> <span class="post-toc-text">Related Links</span></a></li></ol></nav></aside></div><footer class="footer-nav"><div class="footer"><div class="back-top" id="back-top" title="Back to top"><i class="icon icon-chevron-bar-up"></i></div><div class="footer-content"><div class="footer-links"><div class="footer-links-column"><p><a title="友情链接" href="/friendlink" data-i18n-link="友情链接" data-i18n-menu="友情链接">友情链接</a></p></div><div class="footer-links-column"><p><a title="更新日志" href="/changelog" data-i18n-link="更新日志" data-i18n-menu="更新日志">更新日志</a></p></div></div><div><span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">?</span>
+PV
+</span><span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">?</span>
+UV</span></div>
+
+Copyright &copy;
+2026
+Quartex.
+
+Power by
+<a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>
+and
+<a href="https://github.com/Cerallin/hexo-theme-yuzu" target="_blank" rel="external nofollow" title="v3.2.7">Theme Yuzu</a>.</div></div></footer>
+<script>window.config = {
+  url_root: '/',
+  meta_path: 'meta.json',
+};
+</script>
+<script src="/js/theme/back-to-top.js"></script>
+
+
+<script src="/js/theme/clipboard.js"></script>
+
+
+<script src="/js/theme/loading.js"></script>
+
+
+<script src="/js/theme/navbar.js"></script>
+
+<script src="/js/theme/search.js"></script>
+
+<script src="/js/theme/toc.js"></script>
+<script>window.onload = function () {
+  for (const moduleName in Theme) {
+    const module = Theme[moduleName];
+    module.register();
+  }
+};
+</script>
+<script src="/js/i18n.js"></script>
+</div><div class="search-modal" id="search-modal"><div class="card"><div class="card-head"><div class="search-box"><input class="search-input" id="search-input" placeholder="搜索" data-i18n="search.search"/><div class="search-button" id="search-button"><div class="icon icon-search"></div></div></div><div class="close-button"><div class="icon icon-x"></div></div></div><div class="card-body"><div class="search-count"><span data-i18n="search.total">共</span><span id="search-count-num">0</span><span data-i18n="search.counts">条搜索结果。</span></div><div class="search-result" id="search-result"></div></div></div></div></body></html>

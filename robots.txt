@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://quartexounds.xyz/sitemap.xml
