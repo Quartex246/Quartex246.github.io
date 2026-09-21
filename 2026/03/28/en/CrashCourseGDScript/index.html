@@ -1,0 +1,135 @@
+<html lang="zh-cn"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="Crash-course notes on GDScript, Godot's native scripting language, based on Brackeys' tutorial: variables, functions, signals, loops, types, and practical code examples to get you scripting fast."/><title>GDScript Crash Course Notes
+-
+Blog By Quartex</title><link rel="icon" href="/img/favicon.ico"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/helpers.css">
+
+<script src="/js/clipboard/clipboard.min.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+<script async="async" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="loading-wrapper" data-loading="data-loading"><div class="loading"><span></span><span></span><span></span></div></div><div class="page" data-filter="data-filter"><div class="head" data-show="data-show"><header class="head-header"><div class="head-author"><a class="head-author-link" href="/">Blog By Quartex</a></div><div class="head-right"><button class="bar-wrap" id="bar-wrap-toggle" title="menu button"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button><div class="head-item"><a class="search-button head-item-link"><span data-i18n="nav.search">Search</span>
+<i class="icon icon-search"></i></a></div><div class="head-item"><a class="head-item-link" href="/about" data-i18n-link="关于"><span data-i18n-menu="关于">关于</span></a></div><div class="head-item"><button class="lang-toggle head-item-link">EN</button></div></div></header>
+<div class="menubar-head" id="menubar"><ul class="menubar-ul"><li class="menubar-item" data-border="data-border"></li><li class="menubar-item"><i class="icon icon-archive"></i>
+<a class="menubar-link" href="/archives"><span data-i18n-menu="Archives">Archives</span></a></li><li class="menubar-item" data-border="data-border"></li><li class="menubar-item"><a class="menubar-link" href="/about" data-i18n-link="关于"><span data-i18n-menu="关于">关于</span></a></li></ul><div class="menu-search-box search-button"><div data-i18n="nav.search">搜索</div>
+<i class="icon icon-search"></i></div><div class="menubar-item"><button class="lang-toggle head-item-link">EN</button></div></div></div><div class="main" data-page="post"><article class="post" id="post" data-lang="en" data-lang-alt-url="/2026/03/28/zh-cn/CrashCourseGDScript/"><header class="post-head"><h1 class="post-title"><a class="title" href="/2026/03/28/en/CrashCourseGDScript/">GDScript Crash Course Notes</a></h1></header><div class="post-meta"><div class="post-date"><time class="post-time" itemprop="datePublished" title="2026-03-29 00:00:00" datetime="2026-03-28T16:00:00.000Z">2026-03-29</time></div>|
+<div class="post-tag"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Development/" rel="tag">Development</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GDScript/" rel="tag">GDScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gaming/" rel="tag">Gaming</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Godot/" rel="tag">Godot</a></li></ul></div>
+<div class="post-visit"><span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span><span data-i18n="article.hits">访问</span></span></div></div><div class="post-info"><div class="post-word-count">This article contains 763 words.</div>
+</div><div class="article-entry" itemprop="articleBody"><blockquote>
+<p>Notes on getting started quickly with Godot’s native programming language — GDScript</p>
+</blockquote>
+<p>This article will be updated long-term (last updated 2026.3.30)</p>
+<span id="more"></span>
+
+<h2 id="Preamble"><a href="#Preamble" class="headerlink" title="Preamble"></a>Preamble</h2><p>A few days ago I published my Godot study notes, with no response. If they were explosively popular at this stage, that would be abnormal.</p>
+<p>Given the importance of programming languages, I’m opening another article here as a GDScript study log.</p>
+<p>The video is divided into three parts. For ease of reference, I’ll mark points as “first half,” “middle part,” and “later section.”</p>
+<p>This article is based on Brackeys’ GDScript Quick Start tutorial. Here’s the <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Wz42127wh">Bilibili link</a>.</p>
+<h3 id="Helloworld"><a href="#Helloworld" class="headerlink" title="Helloworld"></a>Helloworld</h3><p>A new script will contain two basic functions. I’ve already written about these two functions in my Godot notes, so I won’t repeat them here.</p>
+<p>Use the <code>print</code> keyword to output content:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;helloworld&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h3><p>There are only a few things to know from this part of the video:</p>
+<ol>
+<li>Indentation determines code structure</li>
+<li>Case sensitivity</li>
+</ol>
+<p>Indentation indicates ownership, as shown in the code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">func _ready() -&gt; void:</span><br><span class="line">	$logo.rotation_degrees = <span class="number">90</span>  <span class="comment"># Adding an indent here tells the engine this line belongs to the _ready function</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Modifying-Nodes-1-0"><a href="#Modifying-Nodes-1-0" class="headerlink" title="Modifying Nodes 1.0"></a>Modifying Nodes 1.0</h3><p>Just outputting to the console is boring. Nobody playing a game wants to look at your console.</p>
+<p>As mentioned in the previous article, nodes are an important part of Godot. We can modify node properties through references in scripts.</p>
+<p>There are two ways to bind a node. The first is the manual reference syntax mentioned in the previous article.</p>
+<p>The second is to drag the node directly from the node panel into the IDE, which will auto-generate the statement.</p>
+<p>A typical reference format looks like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$Label.modulate = Color.GREEN  <span class="comment"># referenced_node.property = modified_property</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Key-Binding"><a href="#Key-Binding" class="headerlink" title="Key Binding"></a>Key Binding</h3><ol>
+<li>Create an input map event</li>
+</ol>
+<p>First, open <strong>Project - Project Settings - Input Map</strong>.</p>
+<p>Create a new mapping, then press the plus sign to bind a key. Following the example from the video: <strong>Create an event named my_action that changes the Label’s color when the spacebar is pressed.</strong></p>
+<ol start="2">
+<li>Call the input map event in a script</li>
+</ol>
+<p>The system function for input binding is the <strong>_input</strong> function, formatted as follows:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func _<span class="built_in">input</span>(event):</span><br><span class="line">    <span class="keyword">if</span> is_action_pressed(my_action):     <span class="comment"># while key is held</span></span><br><span class="line">        $Label.modulate = Color.RED</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> is_action_released(my_action):    <span class="comment"># when key is released</span></span><br><span class="line">        $Label.modulate = Color.GREEN</span><br></pre></td></tr></table></figure>
+
+<h3 id="Variables-1-0"><a href="#Variables-1-0" class="headerlink" title="Variables 1.0"></a>Variables 1.0</h3><p>A variable is a property — the name is self-explanatory, so I won’t elaborate.</p>
+<p>The syntax for defining a variable is as follows:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var varname = <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<p>Variables can be changed using operators:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">varname = <span class="number">20</span>        <span class="comment"># direct assignment</span></span><br><span class="line">varname = <span class="number">20</span> + <span class="number">30</span>   <span class="comment"># computed assignment</span></span><br><span class="line">varname += <span class="number">10</span>       <span class="comment"># add and assign</span></span><br><span class="line">varname -= <span class="number">10</span>       <span class="comment"># subtract and assign</span></span><br><span class="line">varname *= <span class="number">2</span>        <span class="comment"># multiply and assign</span></span><br><span class="line">varname /= <span class="number">2</span>        <span class="comment"># divide and assign</span></span><br></pre></td></tr></table></figure>
+
+<p>Reference the key binding section above to change variable values when performing corresponding actions.</p>
+<h3 id="If-Statements"><a href="#If-Statements" class="headerlink" title="If Statements"></a>If Statements</h3><h4 id="Standard-Format"><a href="#Standard-Format" class="headerlink" title="Standard Format"></a>Standard Format</h4><p>Seriously, this overlaps heavily with other languages, so I’ll just write the format:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> varname &lt;= <span class="number">0</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;ur dead&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>If you’re a complete beginner who stumbled onto this by accident: in a nutshell, <strong>if</strong> the condition after <code>if</code> is met, <strong>then</strong> the corresponding action is executed.</p>
+<h4 id="Condition-Format"><a href="#Condition-Format" class="headerlink" title="Condition Format"></a>Condition Format</h4><p>Both conditions must be met, or at least one:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> varname &lt;= <span class="number">0</span> <span class="keyword">and</span> value = <span class="number">1</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;and condition&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> varname &lt;= <span class="number">0</span> <span class="keyword">or</span> value = <span class="number">1</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;or condition&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="else-elif-Format"><a href="#else-elif-Format" class="headerlink" title="else&#x2F;elif Format"></a>else&#x2F;elif Format</h4><p>The “then” in “if…then…”:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> var &gt; <span class="number">0</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;type 1&quot;</span>)</span><br><span class="line"><span class="keyword">elif</span> var &gt; <span class="number">50</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;type 2&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;type 3&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Comments"><a href="#Comments" class="headerlink" title="Comments"></a>Comments</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Hash symbol, explanation complete</span></span><br><span class="line"><span class="comment"># This really is Python</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Variables-2-0"><a href="#Variables-2-0" class="headerlink" title="Variables 2.0"></a>Variables 2.0</h3><p>A variable declared inside a function can only be used within that function. But if declared in a broader scope, it can be used throughout the entire script.</p>
+<p>The former is called a local variable, the latter a global variable.</p>
+<h4 id="Common-Data-Types"><a href="#Common-Data-Types" class="headerlink" title="Common Data Types"></a>Common Data Types</h4><p>GDScript is a dynamically typed language. Unlike statically typed languages, you don’t need to declare the variable type before assigning a value, and types can be converted directly.</p>
+<p><code>int</code>: integer    <code>float</code>: decimal    <code>bool</code>: boolean    <code>string</code>: string</p>
+<p>Data types can be changed by adding the corresponding conversion:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var number = <span class="number">42</span></span><br><span class="line">var text = <span class="string">&quot;Meaning of life: &quot;</span> + <span class="built_in">str</span>(number)  <span class="comment"># str converts the integer to a string</span></span><br><span class="line"><span class="built_in">print</span>(text)</span><br></pre></td></tr></table></figure>
+
+<p>But if you want static typing, you can define it like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var names: <span class="built_in">int</span> = <span class="number">114</span>     <span class="comment"># explicitly specifying the data type</span></span><br><span class="line">var names := <span class="number">1919</span>         <span class="comment"># automatic type inference, consistent with static typing</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Vector-Data-Types"><a href="#Vector-Data-Types" class="headerlink" title="Vector Data Types"></a>Vector Data Types</h4><p>Godot uses <code>Vector2</code> and <code>Vector3</code> to represent 2D and 3D coordinates, typically used for positions.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var position = Vector3(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)  <span class="comment"># initialize coordinates</span></span><br><span class="line">position.x += <span class="number">2</span>                   <span class="comment"># increment the x coordinate</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Constants"><a href="#Constants" class="headerlink" title="Constants"></a>Constants</h4><p>The keyword is <code>const</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const constant = <span class="number">10</span></span><br></pre></td></tr></table></figure>
+</div></article><aside class="post-widget"><h4 data-i18n="toc.title">In this article</h4><nav class="post-toc-wrap" id="post-toc"><ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Preamble"><span class="post-toc-number">1.</span> <span class="post-toc-text">Preamble</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Helloworld"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Helloworld</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Syntax"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Syntax</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Modifying-Nodes-1-0"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Modifying Nodes 1.0</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Key-Binding"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Key Binding</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Variables-1-0"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">Variables 1.0</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#If-Statements"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">If Statements</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Standard-Format"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">Standard Format</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Condition-Format"><span class="post-toc-number">1.6.2.</span> <span class="post-toc-text">Condition Format</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#else-elif-Format"><span class="post-toc-number">1.6.3.</span> <span class="post-toc-text">else&#x2F;elif Format</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Comments"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">Comments</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Variables-2-0"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">Variables 2.0</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Common-Data-Types"><span class="post-toc-number">1.8.1.</span> <span class="post-toc-text">Common Data Types</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Vector-Data-Types"><span class="post-toc-number">1.8.2.</span> <span class="post-toc-text">Vector Data Types</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Constants"><span class="post-toc-number">1.8.3.</span> <span class="post-toc-text">Constants</span></a></li></ol></li></ol></li></ol></nav></aside></div><footer class="footer-nav"><div class="footer"><div class="back-top" id="back-top" title="Back to top"><i class="icon icon-chevron-bar-up"></i></div><div class="footer-content"><div class="footer-links"><div class="footer-links-column"><p><a title="友情链接" href="/friendlink" data-i18n-link="友情链接" data-i18n-menu="友情链接">友情链接</a></p></div><div class="footer-links-column"><p><a title="更新日志" href="/changelog" data-i18n-link="更新日志" data-i18n-menu="更新日志">更新日志</a></p></div></div><div><span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">?</span>
+PV
+</span><span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">?</span>
+UV</span></div>
+
+Copyright &copy;
+2026
+Quartex.
+
+Power by
+<a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>
+and
+<a href="https://github.com/Cerallin/hexo-theme-yuzu" target="_blank" rel="external nofollow" title="v3.2.7">Theme Yuzu</a>.</div></div></footer>
+<script>window.config = {
+  url_root: '/',
+  meta_path: 'meta.json',
+};
+</script>
+<script src="/js/theme/back-to-top.js"></script>
+
+
+<script src="/js/theme/clipboard.js"></script>
+
+
+<script src="/js/theme/loading.js"></script>
+
+
+<script src="/js/theme/navbar.js"></script>
+
+<script src="/js/theme/search.js"></script>
+
+<script src="/js/theme/toc.js"></script>
+<script>window.onload = function () {
+  for (const moduleName in Theme) {
+    const module = Theme[moduleName];
+    module.register();
+  }
+};
+</script>
+<script src="/js/i18n.js"></script>
+</div><div class="search-modal" id="search-modal"><div class="card"><div class="card-head"><div class="search-box"><input class="search-input" id="search-input" placeholder="搜索" data-i18n="search.search"/><div class="search-button" id="search-button"><div class="icon icon-search"></div></div></div><div class="close-button"><div class="icon icon-x"></div></div></div><div class="card-body"><div class="search-count"><span data-i18n="search.total">共</span><span id="search-count-num">0</span><span data-i18n="search.counts">条搜索结果。</span></div><div class="search-result" id="search-result"></div></div></div></div></body></html>
