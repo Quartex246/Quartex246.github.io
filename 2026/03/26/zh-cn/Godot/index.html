@@ -16,11 +16,11 @@ Blog By Quartex</title><link rel="icon" href="/img/favicon.ico"/>
 <a class="menubar-link" href="/archives"><span data-i18n-menu="Archives">Archives</span></a></li><li class="menubar-item" data-border="data-border"></li><li class="menubar-item"><a class="menubar-link" href="/about" data-i18n-link="关于"><span data-i18n-menu="关于">关于</span></a></li></ul><div class="menu-search-box search-button"><div data-i18n="nav.search">搜索</div>
 <i class="icon icon-search"></i></div><div class="menubar-item"><button class="lang-toggle head-item-link">EN</button></div></div></div><div class="main" data-page="post"><article class="post" id="post" data-lang="zh-cn" data-lang-alt-url="/2026/03/26/en/Godot/"><header class="post-head"><h1 class="post-title"><a class="title" href="/2026/03/26/zh-cn/Godot/">Godot学习笔记</a></h1></header><div class="post-meta"><div class="post-date"><time class="post-time" itemprop="datePublished" title="2026-03-26 00:00:00" datetime="2026-03-25T16:00:00.000Z">2026-03-26</time></div>|
 <div class="post-tag"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GDScript/" rel="tag">GDScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Godot/" rel="tag">Godot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F/" rel="tag">游戏</a></li></ul></div>
-<div class="post-visit"><span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span><span data-i18n="article.hits">访问</span></span></div></div><div class="post-info"><div class="post-word-count">本文共2,381字。</div>
+<div class="post-visit"><span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span><span data-i18n="article.hits">访问</span></span></div></div><div class="post-info"><div class="post-word-count">本文共2,670字。</div>
 </div><div class="article-entry" itemprop="articleBody"><blockquote>
 <p>记录Godot游戏引擎的学习</p>
 </blockquote>
-<p>本文章长期更新（最后更新于2026.4.28）</p>
+<p>本文章长期更新（最后更新于2026.10.9）</p>
 <span id="more"></span>
 
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>古人有云，温故而知新，学习做笔记</p>
@@ -138,7 +138,7 @@ Blog By Quartex</title><link rel="icon" href="/img/favicon.ico"/>
 <ol start="2">
 <li>脚本调用映射事件</li>
 </ol>
-<p>用于按键绑定的系统函数**_input**函数格式如下</p>
+<p>用于按键绑定的系统函数<code>_input</code>函数格式如下</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func _<span class="built_in">input</span>(event):</span><br><span class="line">    <span class="keyword">if</span> is_action_pressed(my_action) 	<span class="comment"># 按住按键</span></span><br><span class="line">    $Label.modulate = Color.RED</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> is_action_released(my_action) 	<span class="comment"># 释放按键</span></span><br><span class="line">    $Label.modulate = Color.GREEN</span><br></pre></td></tr></table></figure>
 
 <p>值得一提的是，按下有两个函数，<code>is_action_pressed</code>和<code>is_action_just_pressed</code>. 核心区别就在于前者会一直检测按下的状态，而后者只检测第一次按下</p>
@@ -185,7 +185,27 @@ Blog By Quartex</title><link rel="icon" href="/img/favicon.ico"/>
 <td>检测区域</td>
 <td>检测其他物体是否进入</td>
 </tr>
+<tr>
+<td>将一个节点属性设置为<code>StaticBody</code>之后，需要为其绘制一个<code>CollisionShape</code>或<code>CollisionPolygon</code>并把他作为其子节点，让引擎知道静态碰撞体的形状。在添加子节点后，在Shape属性中选择想要的形状</td>
+<td></td>
+<td></td>
+</tr>
 </tbody></table>
+<div align="center">
+  <img src="collisionbody.png" alt="碰撞形状">
+</div>
+
+<p>小技巧，按住alt调整图形可以按一个轴缩放。如果我看这条没看懂，自己去试试</p>
+<p>游戏主角毋庸置疑是一个<code>CharacterBody</code>，设置节点为<code>CharacterBody</code>后，需要注意两点</p>
+<ol>
+<li>脚本中的头文件为<code>extends CharacterBody</code></li>
+<li>原先的位置变换将不会对角色起到实质作用。要想让角色能碰撞，需要使用<code>move_and_slide</code>函数，并有一个<code>velocity</code>前置条件</li>
+</ol>
+<p>根据官方文档，<code>move_and_slide</code>函数的定义为</p>
+<blockquote>
+<p>Moves the body based on <code>velocity</code>. If the body collides with another, it will slide along the other body rather than stop immediately.]</p>
+</blockquote>
+<p>这个函数本身就用了delta增量时间，所以如果脚本中使用了delta，是不会被调用的。我们可以在脚本中的delta前面加一个_(delta -&gt; _delta)，这样他在运动方面仍然会有作用，但是对于这个函数是不会起作用的</p>
 </div></article><aside class="post-widget"><h4 data-i18n="toc.title">目录</h4><nav class="post-toc-wrap" id="post-toc"><ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%89%8D%E8%A8%80"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5"><span class="post-toc-number">2.</span> <span class="post-toc-text">关键概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8A%82%E7%82%B9"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">节点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%88%B6%E8%8A%82%E7%82%B9%E4%B8%8E%E5%AD%90%E8%8A%82%E7%82%B9"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">父节点与子节点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AF%AD%E8%A8%80"><span class="post-toc-number">3.</span> <span class="post-toc-text">语言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AF%AD%E8%A8%80%E7%89%B9%E7%82%B9"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">语言特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">内置函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A2%9E%E9%87%8F%E6%97%B6%E9%97%B4%EF%BC%88Delta%EF%BC%89"><span class="post-toc-number">4.</span> <span class="post-toc-text">增量时间（Delta）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E8%BE%93%E5%85%A5"><span class="post-toc-number">5.</span> <span class="post-toc-text">获取输入</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9B%B4%E5%A4%9A%E8%8A%82%E7%82%B9%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="post-toc-number">6.</span> <span class="post-toc-text">更多节点该怎么办</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%94%AF%E4%B8%80%E5%90%8D%E7%A7%B0%E8%AE%BF%E9%97%AE"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">唯一名称访问</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8A%82%E7%82%B9%E4%B9%8B%E9%97%B4%E4%BA%92%E7%9B%B8%E8%AE%BF%E9%97%AE"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">节点之间互相访问</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%89%A9%E7%90%86"><span class="post-toc-number">7.</span> <span class="post-toc-text">物理</span></a></li></ol></nav></aside></div><footer class="footer-nav"><div class="footer"><div class="back-top" id="back-top" title="Back to top"><i class="icon icon-chevron-bar-up"></i></div><div class="footer-content"><div class="footer-links"><div class="footer-links-column"><p><a title="友情链接" href="/friendlink" data-i18n-link="友情链接" data-i18n-menu="友情链接">友情链接</a></p></div><div class="footer-links-column"><p><a title="更新日志" href="/changelog" data-i18n-link="更新日志" data-i18n-menu="更新日志">更新日志</a></p></div></div><div><span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">?</span>
 PV
 </span><span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">?</span>

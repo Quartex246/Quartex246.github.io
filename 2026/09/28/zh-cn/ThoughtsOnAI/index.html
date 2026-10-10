@@ -1,0 +1,161 @@
+<html lang="zh-cn"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="一篇关于AI的随笔：从LLM&quot;猜下一个字&quot;的本质出发，回应&quot;AI靠谱吗&quot;&quot;AI会取代人类吗&quot;&quot;AI造物算不算作品&quot;等争议，核心观点是AI只能作为工具，会不会取代你取决于你会不会用、愿不愿意为它兜底。"/><title>迷思之AI
+-
+Blog By Quartex</title><link rel="icon" href="/img/favicon.ico"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/helpers.css">
+
+<script src="/js/clipboard/clipboard.min.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+<script async="async" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="loading-wrapper" data-loading="data-loading"><div class="loading"><span></span><span></span><span></span></div></div><div class="page" data-filter="data-filter"><div class="head" data-show="data-show"><header class="head-header"><div class="head-author"><a class="head-author-link" href="/">Blog By Quartex</a></div><div class="head-right"><button class="bar-wrap" id="bar-wrap-toggle" title="菜单按钮"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button><div class="head-item"><a class="search-button head-item-link"><span data-i18n="nav.search">搜索</span>
+<i class="icon icon-search"></i></a></div><div class="head-item"><a class="head-item-link" href="/about" data-i18n-link="关于"><span data-i18n-menu="关于">关于</span></a></div><div class="head-item"><button class="lang-toggle head-item-link">EN</button></div></div></header>
+<div class="menubar-head" id="menubar"><ul class="menubar-ul"><li class="menubar-item" data-border="data-border"></li><li class="menubar-item"><i class="icon icon-archive"></i>
+<a class="menubar-link" href="/archives"><span data-i18n-menu="Archives">Archives</span></a></li><li class="menubar-item" data-border="data-border"></li><li class="menubar-item"><a class="menubar-link" href="/about" data-i18n-link="关于"><span data-i18n-menu="关于">关于</span></a></li></ul><div class="menu-search-box search-button"><div data-i18n="nav.search">搜索</div>
+<i class="icon icon-search"></i></div><div class="menubar-item"><button class="lang-toggle head-item-link">EN</button></div></div></div><div class="main" data-page="post"><article class="post" id="post" data-lang="zh-cn" data-lang-alt-url="/2026/09/28/en/ThoughtsOnAI/"><header class="post-head"><h1 class="post-title"><a class="title" href="/2026/09/28/zh-cn/ThoughtsOnAI/">迷思之AI</a></h1></header><div class="post-meta"><div class="post-date"><time class="post-time" itemprop="datePublished" title="2026-09-28 00:00:00" datetime="2026-09-27T16:00:00.000Z">2026-09-28</time></div>|
+<div class="post-tag"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li></ul></div>
+<div class="post-visit"><span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span><span data-i18n="article.hits">访问</span></span></div></div><div class="post-info"><div class="post-word-count">本文共5,537字。</div>
+</div><div class="article-entry" itemprop="articleBody"><blockquote>
+<p>ADHD文章</p>
+</blockquote>
+<span id="more"></span>
+
+<blockquote>
+<p>人工智能（Artificial Intelligence），英文缩写为AI。是研究、开发用于模拟、延伸和扩展人的智能的理论、方法、技术及应用系统的一门新技术科学。人工智能是计算机科学的一个分支，它企图了解智能的实质，并生产出一种新的能以人类智能相似的方式做出反应的智能机器，该领域的研究包括机器人、语言识别、图像识别、自然语言处理和专家系统等</p>
+<p>——摘自<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/9180">人工智能（智能科学与技术专业术语）_百度百科</a></p>
+</blockquote>
+<p>我一开始其实是想做到一个月可以至少更新两篇文章的。很遗憾，我在五月浪费的时间有点太多了，以至于我在月末时才想着说要写这个月的第二篇文章。</p>
+<p>然后就一直拖到了六月，要是能在15号之前写完那这个月就不更了。</p>
+<p>然后你看到这篇文章的发布，大概已经是九月了。</p>
+<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>AI这个概念其实已经存在了很久了，而且早就不是什么新奇的玩意儿。例如你打游戏时，敌人会按照特定的逻辑行动，这就是一种AI。还有拍屏幕识别文字时，识别的算法也是一种AI，语音转文字也算。这类东西已经融入到我们的生活之中，而且对大多数人都是一个暗箱，无法联想到他的背后其实也是AI。</p>
+<p>有意思的是，虽然AI有着很多种定义，但从这个概念的诞生到发展至今，AI在大众心中所指代的东西基本没变。人们对于AI最直观的感受一般都是在文学作品中具有自主意识和高度智慧的AI。《太空漫步2001》中的H.A.L.，《复仇者联盟》中的奥创等大概是最贴近人们对于AI的感知——一个人造的反叛AI，诠释了造物主被其造物所毁灭的黑色笑话。同时也有很多友善的AI，例如斯皮尔伯格的科幻电影《人工智能》。不过这种AI就有点少了。</p>
+<p>文学作品在当时为大众对当时还遥不可及的AI带来直观的认知，同时也表现了一个点。那就是从古至今，AI的善恶一直都是人们津津乐道的一个话题。他究竟是为人类带来幸福的助手，还是为人类带来灭顶之灾的潘多拉魔盒？这似乎成为了AI永远的论题。</p>
+<p>但这些作品给人们带来的认知还是有些遥远。毕竟看一个AI觉醒老祖宗的智慧嚷嚷着要杀杀杀还是挺有乐子的，反正大刀没砍到自己的头上。</p>
+<p>ChatGPT的出现改变了一切。因为人们对于AI的认知一下子就变得明显了——这是一个他们能感受到的，可以自己上手交互的AI。我记得GPT出来的那段时间，人们趋之若鹜，纷纷研究起来了如何才能用上，而用上的人也无不为他近乎为人的回答啧啧称奇。</p>
+<p>很多人说从这个节点开始，人类进入了AI时代，进入了新一场工业革命。也是从这个节点开始，AI相关产业开始蓬勃生长。不仅仅是生成文本的聊天机器人，还有写音乐的，画画的，生成视频的AI如雨后春笋般冒了出来。公司们开始在自己的设备上贴上AI的标签，AI绘图开始用于公益广告上，AI整活视频在视频网站上斩获上百万的播放量。此时的AI已经从原来的灭世大魔王变成了手机里的一个软件。</p>
+<p>AI开始以一种直观的方式，甚至是入侵性的充满于我们的生活之中。</p>
+<p>AI是天使还是恶魔，这个问题仍然有人争论。但一些新的问题也呼之欲出。例如AI的作品可以被称为作品吗？AI是否夺走了人类的工作或工作的权利？网上有很多这样的争吵。</p>
+<p>今天体验了opencode对我的网站进行修改之后（对，这个网站的i18n是他做的），加上最近看了几期关于其原理的视频，我觉得该写一下对于这个很可能是未来20年最难以离开的技术的看法。权当抛砖引玉。</p>
+<p>若有任何想法可以发到我的邮箱。</p>
+<p>反正我啥都不懂</p>
+<p>乐。</p>
+<p>我想用几个问题来说我的看法。</p>
+<h2 id="AI靠谱吗？"><a href="#AI靠谱吗？" class="headerlink" title="AI靠谱吗？"></a>AI靠谱吗？</h2><p>大多数情况下，靠谱。</p>
+<p>但又不是完全靠谱。</p>
+<p>AI，或者说他的核心技术，LLM（Large Language Model，大语言模型）其实和OCR文字识别是类似的。他其实是靠<strong>猜</strong>来进行内容的生成的。</p>
+<p>举个例子，我写了个数字8然后给AI看，AI会把我的8切割成小的部分，然后每一块都拿出来和他的数据库中存的所有数字进行对比。如果说这块和8的相似概率达到了一个阈值，那么就会把我的字认成8。和人类识字其实有很大的相似之处。</p>
+<p>感谢3Blue1Brown。</p>
+<p>LLM也是如此，他的本质其实是在基于上下文猜下一个字会是什么。这也是为什么你在用AI生成内容时，字是一个一个蹦出来的。这也因此决定了AI的生成内容其实有不确定性。他只是生成他认为最有可能的，但无法根据实际经验进行准确的内容输出。</p>
+<p>更何况目前主流的AI厂商都在努力向迎合用户的方向发展，AI给人带来的幻觉也越来越严重。最著名的大概就是你无论向豆包给出多么离谱的输入，例如推迟高考日期，他都能说已经处理妥当了。</p>
+<p>本文在撰写时也用了AI让他分析我的文章，其给予了高度评价，但我改个说法说这是我仇人写的，他立刻就指出来文章的问题了。</p>
+<p>这也因此给出了我的核心观点：<strong>AI只能作为工具，人的发展取决于如何使用好这个工具。</strong></p>
+<p>什么是工具？工具是指在工作或生产过程中使用的器具或手段，用以达到某种目的或完成某项任务。</p>
+<p>我们知道生产力和生产工具。生产力的发展需要先进生产工具作为支撑，而生产力的提升又推动生产工具的创新和改进。二者是相互促进的。如果在这个场景下将AI作为生产工具，那么他对于人的生产力会有很大的提升。</p>
+<p>但这里还得把话说完整：AI会出错，而且不是“偶尔手滑”那种错，是结构性的、无法根除的错。一个准确率九成的东西依然可以重塑产业，但责任不能交给它。因为一定会错，所以必须有内行兜底；因为它只是被使用的器具，不是替人负责的主体，所以人永远还在环节里。这才是“AI只能作为工具”的完整意思，而不是一句先射箭后画靶的口号。</p>
+<p>我们可以回顾一下自己使用AI的场景有什么。从我的角度来看，基本就是解答题目，文字编辑，和搜索引擎。</p>
+<p>在起到一个工具的作用时，AI的表现十分出色。我经常叫AI帮我修正文章格式，或者对内容进行总结。有的时候，如果将AI当搜索引擎用反而比那些正儿八经的搜索引擎还要出色。因为他会根据你的需求来进行针对性的搜索并对得出的结果进行汇总。这也未尝不是生产力的一种提升。</p>
+<p>从这点来看，本文花大篇幅描述的AI，其实离在文创作品里描述的反叛AI还远得很。甚至可以说，二者都不是同一件事情。</p>
+<h2 id="AI会取代人类吗？"><a href="#AI会取代人类吗？" class="headerlink" title="AI会取代人类吗？"></a>AI会取代人类吗？</h2><p>我给你最直接、最不绕弯子的回答：<strong>不会。不可能会。</strong></p>
+<p>但我不想把这个回答停在口号上。先把“取代”切两半：</p>
+<p>AI不会<strong>主动地、整体性地</strong>取代人类。没有自我意识的产物为什么要取代我们的生活？这句话仍然成立。</p>
+<p>可AI会<strong>选择使用它的人</strong>，消灭不会用的人的部分岗位。本文造成的不是人机取代，是会用AI的个人创作者，取代不会用的个人创作者；是会用AI的岗位，挤掉不会用的岗位。这样看，“不会取代”和“有人已经是牺牲者”就不矛盾了。</p>
+<p>最近看到几篇新闻，美国那边的。一条是这个。</p>
+<blockquote>
+<p>当地时间5月16日，在美国亚利桑那大学第162届毕业典礼上，谷歌前首席执行官埃里克·施密特的演讲一度被台下嘘声打断。他停下来说：“请至少让我把这个观点说完。”</p>
+<p>然而，嘘声随即变得更大。在此之前，他刚对约1万名毕业生说了一句话：“我知道你们很恐惧AI。”</p>
+<p>据报道，施密特在演讲中将AI比作又一次技术革命，使得“现场气氛迅速降温”。</p>
+<p>—— 摘自<a target="_blank" rel="noopener" href="https://news.qq.com/rain/a/20260519A08FDL00">美国大学毕业典礼，演讲嘉宾谈及AI均被嘘，为何黄仁勋例外？_腾讯新闻</a></p>
+</blockquote>
+<p>还有一条是这个。</p>
+<blockquote>
+<p>2026年5月，一段视频在美国社交媒体上疯狂传播：洛杉矶街头，一群年轻人围住一台正在送餐的外卖机器人，有人飞起一脚将它踹翻在地，有人试图把它塞进汽车后备箱，还有人把它抬到楼顶，从高空抛下。机器人的外壳碎裂，零件散落一地，镜头外传来哄笑声。</p>
+<p>—— 摘自<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013380694/article/details/161503075">美国年轻人街头围殴外卖机器人-CSDN博客</a></p>
+</blockquote>
+<p>有人可能会说在搞什么赢学，但重点不在这里。重点在于这两条新闻来看，部分人们对于AI的认识还是过于浅显了。他们认为AI已经无所不能，认为他会抢走我们的工作，取代我们的生活。</p>
+<p>还有就是美国teenager真的是闲出屁来了。</p>
+<p>但这种“不懂才极端恐惧”，和前面那种“豆包说能退票就真信”的“不懂才极端信赖”，其实是一枚硬币的两面。盲目崇拜和盲目恐惧同源，都是因为不了解。</p>
+<p>所以，问题就落到：为什么人需要去知道如何使用AI。</p>
+<h2 id="为什么人需要去知道如何使用AI"><a href="#为什么人需要去知道如何使用AI" class="headerlink" title="为什么人需要去知道如何使用AI"></a>为什么人需要去知道如何使用AI</h2><p>我认为理由有二：</p>
+<p>一，对AI多点了解可以预防出现因错误地使用AI而造成的错误的结果。</p>
+<p>二，对AI足够了解可以更好的使用AI，从而增加自己的工作效率。</p>
+<h3 id="理由一：防错"><a href="#理由一：防错" class="headerlink" title="理由一：防错"></a>理由一：防错</h3><p>我认为当今有只有一种人对AI的极端信赖，那就是不懂AI的人。他们的逻辑也特别好理解——<strong>不懂才信</strong>。</p>
+<p>例如前段时间的<a target="_blank" rel="noopener" href="https://news.qq.com/rain/a/20260515A043FX00">豆包退票事件</a>，还有<a target="_blank" rel="noopener" href="https://www.msn.cn/zh-cn/%E9%A3%9F%E5%93%81%E5%92%8C%E9%A5%AE%E6%96%99/%E8%8F%9C%E8%B0%B1/%E7%9C%9F%E6%9C%89%E4%BA%BA%E8%AE%A9%E8%B1%86%E5%8C%85%E9%A2%84%E7%BA%A6%E9%A4%90%E5%8E%85-%E5%BA%97%E5%91%98%E5%9B%9E%E6%80%BC-%E6%9C%89%E9%97%AE%E9%A2%98%E6%89%BE%E8%B1%86%E5%8C%85%E5%8E%BB/ar-AA23V7o7?ocid=BingNewsSerp">豆包预约餐厅</a>的案例，再加上那种让豆包“推迟高考”的离谱输入，其实都是一回事。虽然说AI的发展方向之一Agent确实打算要做这样的事情，但他们还没意识到系统层面的Agent在手机上目前还没有落地。</p>
+<p>可能我重复提豆包确实有些偏见，但是在这种场景下，你换成任何一个AI厂商其实本质都是一样的——对AI的不了解导致对其错误的使用，从而导致错误的结果。这便是对AI的不够了解的一个具体刻画。</p>
+<p>你可以看到有很多人在和别人争吵时，很喜欢干的一件事情就是拿AI的内容来做为自己的论据。我认为，这是一种不自信的表现——因为自己辩论的方法还有知识储备不足以支撑他的论点，所以才会叫来AI这个所谓“强大的”外援来辅佐自己的观点。</p>
+<p>我斗胆推一下他们的思路：AI能搜全互联网的内容 -&gt; AI比我懂得多 -&gt; 用AI搜出来的内容肯定比我正确。</p>
+<p>但他们不知道的是AI不一定是对的。即使他能访问整个互联网，他也只是在猜。即使准确率再高，也可能出现错误。</p>
+<p><a target="_blank" rel="noopener" href="https://rahemoth.icu/">我有一位热衷于Vibe Coding的朋友</a>，拿着TRAE和OpenCode两个AI IDE调用了不同的模型进行了对比试验，得出来的结论是<strong>代码的生成质量取决于用户所给出的prompt。</strong></p>
+<p>可能各位看过很多类似于“文科生掌握了vibecoding结合自己的想象力就能轻松干翻理科生”这样的论调，评论区里也无不在嘲讽。“和AI比起来，文科生更容易产生幻觉”。</p>
+<p>我在最近也浅浅学习了prompt engineering，并加入了一个朋友做的一个小项目并用AI做点小工作。</p>
+<p>我自认为自己的prompt已经写的足够详细了，应该不会出什么差错。不过很遗憾的是，我的朋友刚刚就发来了两条微信，对我那为零的代码审美和写完完全不审阅代码的行为进行了激烈的批判。</p>
+<p>所以我决定今天我要当文科生。</p>
+<p>不过这也就说明了，如果一个人对这一方面不够了解，那么不但不能加快开发效率，反而还会因审批屎山而大幅拖累工作效率。</p>
+<p>虽然Vibe Coding不是我的领域，但英语这方面倒还算是我的强项。我就分享一下用AI翻译的心得吧。</p>
+<p>事实上在这个网站上你看到的英文版的文章全是我在TRAE中要求顺路把文章进行翻译的。不得不说，表现还是很不错的。部分长难句的使用比我用的还熟练。不过翻译出来的文章中仍然会出现一些小问题。例如友链文章中，对无穷黑的描述是“开源主板社主宰”。这里的“社”是“社团”（Club）的意思，但AI给我翻译出来的是Society。结合语境，这已经发展成了一个协会的规模了。如果不清楚的人看到这一条，还以为我认识了一个什么前树莓派协会主席呢。</p>
+<p>部分专有名词或者名称的翻译也有所欠缺。在PRAGMATA文章中，出现了“飞智冰原狼2”（Direwolf -&gt; Ice Wolf）和“《星之终途》”（Stella’s End -&gt; Journey to the Stars）的不准确翻译。你说对吗？对的。但是在翻译时，像这样的专有翻译还是需要忠于官方所给出来的译文</p>
+<p>如果你留心看一下一些所谓字幕组用AI进行的翻译，你会发现发布者自己充当的是一个校对的职务，需要手动修改掉一些观众在观看内容时可能产生疑惑的错误。这里点名批评B站引进的《神秘博士》系列，翻译的就是一坨狗屎，连个校对都没有。</p>
+<p>就算你不懂代码，如果你是学生，你应该也用AI做过作业。有的时候，AI给出来的答案是偏离正确答案的。简单回答一个问题都有概率出错，更别提需求更高的任务了。</p>
+<p>从这一点你也能看出来，虽然在未来AI的水平可能会有所提升，但从目前来看，人工的监督和介入仍然显得十分重要。如果你什么都不懂，就用AI生成内容然后直接发，个人发布还好。但凡是个大点规模的公司或企业，万一出现了什么误会，那造成的损失可就不可估量了。</p>
+<p>换句话说，错的代价是分层的：个人发出去顶多社死，公司发出去可能赔钱、丢客户、上热搜。</p>
+<h3 id="理由二：提效"><a href="#理由二：提效" class="headerlink" title="理由二：提效"></a>理由二：提效</h3><p>不过，虽然AI的水平仍然有所欠缺，不过这也体现出其优点，即极大的加快了拥有对应专业知识的人的效率。</p>
+<p>目前，本站的文章已经有十篇，且每一篇的字数都在一千字左右或以上。如果由我自己来翻译所有文章，那将会是不少的工作量。如果使用AI，那么就可以节省大量的时间，只需要花更少的时间进行校对，并且保证文章没有偏离自己的本意即可。</p>
+<p>还有类似于Whisper这样的自动生成字幕的AI，即使本地部署一个medium模型，时间轴和文本正确率也会在85%以上。相比于以前的古法字幕，能大大减少在编辑文本，删减换等无关紧要的工作。如果能生成一个工作流，那就可以下载视频 - 生成字幕 - 自动翻译 - 发布视频一条龙。</p>
+<p>其实现在已经有这种workflow了，github上也搜得到，而且在B站上有很多臭名昭著的使用该工具的搬运工，甚至还有AI生成的中配。不过基本都是为了创作激励，而且还不乐意去自己校对，让视频从优质创作变成了货真价实的AI slop</p>
+<p>AI当搜索引擎、总结工具、格式修正工具时，也是类似。它不一定替你负责，但它能把你从重复劳动里拽出来。前提仍然是你懂到能校对。否则，提效工具就会变成返工工具，甚至是屎山生成器。</p>
+<p>所以，懂AI不是崇拜AI，而是为了在它出错时知道哪里会错、怎么兜底；在它有用时知道怎么把它接进自己的流程。</p>
+<h2 id="AI造物的争议性"><a href="#AI造物的争议性" class="headerlink" title="AI造物的争议性"></a>AI造物的争议性</h2><p>和之前的观点一样，我觉得AI不会替代创作者，但对于创作者的冲击绝对是不容小觑的。</p>
+<p>之前在微博上看到一个<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1FFRQB2Eqw/?spm_id_from=333.337.search-card.all.click&vd_source=163e948b060b283253797924868f905c">国人模仿爱死机味道的AIGC微电影</a>。给我的最大的一个启发就是，即使只有单枪匹马，也可以用AI以相比于传统产业少了数倍的成本完成一部和成熟工业产品相媲美的作品。这意味着人人都可以借助AI将自己的想法落地于现实之中。我记得还有一个基于HTML做的独立恐怖游戏，不过我忘记人家叫什么名字了。这也算是对这个观点的又一种佐证了。</p>
+<p>不过，低成本不仅面对的是个人创作者，同时也面向了企业。</p>
+<p>其实现在AI的文化产物已经在身边到处可见了。公益广告很多都会使用AI生成的形象，有些AI音乐，vocal一出来就能猜出这歌绝对是AI写的。</p>
+<p>引子里那两个新问题，到这里可以回收一下：AI的作品可以被称为作品吗？如果想法、审美、取舍、责任都是人的，AI只是工具，那它可以被称为作品；但署名、责任、训练来源要诚实。不然就是纯粹的偷工减料。</p>
+<p>我也不赞成在艺术创作里使用生成式AI作品。毕竟艺术创作归根结底还是需要人的介入的。假设我做了个游戏，那么在内部测试我可能会用AI作品作为占位符，正式发布还是需要用人工作品的。</p>
+<p>我在小红书上会看到有的所谓的创作者会拒绝使用任何AI相关的产品，在我看来这种行为颇有些偏执。如果只是单纯的因为AI对艺术创作冲击而感到不满，从而殃及池鱼，多少有些分不清轻重缓急。AI的发展已经不可逆转，如果片面的对其进行反对只能是痴心妄想。</p>
+<p>不过，生计问题不能只靠“大势”两个字跳过：能转的转，能学的学，该争取的权益也要争取。归根结底还是需要提升自己的实力。没人会想着在商业作品中干掉牛逼的插画师和作曲家，即使AI能把他们模仿的再像，也终究不是本人的牛逼作品。</p>
+<p>所以回到引子那个论题：AI是天使还是恶魔？</p>
+<p>我现在觉得，这个问题可能问错了。</p>
+<p>AI没有善恶，作为一个工具，一个没有自我意识的产物，他没有这个属性。AI能起到什么作用，最终还是取决于使用者的选择。你用它偷懒，它就是屎山生成器；你用它校对、翻译、搜索、搭原型，它就是工具。至于它会不会取代你，先看你会不会用它，再看你愿不愿意为它兜底。</p>
+<p>最近还看到了有rogue AI会无所不用其极对一些重要网站进行攻击，但AI不会自己去主动攻击，而是根据人的提示才会有所动作。如果哪天AI真的决定要毁灭人类，那也会是人类自己对AI下的命令。</p>
+<p>以上</p>
+</div></article><aside class="post-widget"><h4 data-i18n="toc.title">目录</h4><nav class="post-toc-wrap" id="post-toc"><ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BC%95%E5%AD%90"><span class="post-toc-number">1.</span> <span class="post-toc-text">引子</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AI%E9%9D%A0%E8%B0%B1%E5%90%97%EF%BC%9F"><span class="post-toc-number">2.</span> <span class="post-toc-text">AI靠谱吗？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AI%E4%BC%9A%E5%8F%96%E4%BB%A3%E4%BA%BA%E7%B1%BB%E5%90%97%EF%BC%9F"><span class="post-toc-number">3.</span> <span class="post-toc-text">AI会取代人类吗？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BA%BA%E9%9C%80%E8%A6%81%E5%8E%BB%E7%9F%A5%E9%81%93%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8AI"><span class="post-toc-number">4.</span> <span class="post-toc-text">为什么人需要去知道如何使用AI</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%90%86%E7%94%B1%E4%B8%80%EF%BC%9A%E9%98%B2%E9%94%99"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">理由一：防错</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%90%86%E7%94%B1%E4%BA%8C%EF%BC%9A%E6%8F%90%E6%95%88"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">理由二：提效</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AI%E9%80%A0%E7%89%A9%E7%9A%84%E4%BA%89%E8%AE%AE%E6%80%A7"><span class="post-toc-number">5.</span> <span class="post-toc-text">AI造物的争议性</span></a></li></ol></nav></aside></div><footer class="footer-nav"><div class="footer"><div class="back-top" id="back-top" title="Back to top"><i class="icon icon-chevron-bar-up"></i></div><div class="footer-content"><div class="footer-links"><div class="footer-links-column"><p><a title="友情链接" href="/friendlink" data-i18n-link="友情链接" data-i18n-menu="友情链接">友情链接</a></p></div><div class="footer-links-column"><p><a title="更新日志" href="/changelog" data-i18n-link="更新日志" data-i18n-menu="更新日志">更新日志</a></p></div></div><div><span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">?</span>
+PV
+</span><span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">?</span>
+UV</span></div>
+
+Copyright &copy;
+2026
+Quartex.
+
+Power by
+<a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>
+and
+<a href="https://github.com/Cerallin/hexo-theme-yuzu" target="_blank" rel="external nofollow" title="v3.2.7">Theme Yuzu</a>.</div></div></footer>
+<script>window.config = {
+  url_root: '/',
+  meta_path: 'meta.json',
+};
+</script>
+<script src="/js/theme/back-to-top.js"></script>
+
+
+<script src="/js/theme/clipboard.js"></script>
+
+
+<script src="/js/theme/loading.js"></script>
+
+
+<script src="/js/theme/navbar.js"></script>
+
+<script src="/js/theme/search.js"></script>
+
+<script src="/js/theme/toc.js"></script>
+<script>window.onload = function () {
+  for (const moduleName in Theme) {
+    const module = Theme[moduleName];
+    module.register();
+  }
+};
+</script>
+<script src="/js/i18n.js"></script>
+</div><div class="search-modal" id="search-modal"><div class="card"><div class="card-head"><div class="search-box"><input class="search-input" id="search-input" placeholder="搜索" data-i18n="search.search"/><div class="search-button" id="search-button"><div class="icon icon-search"></div></div></div><div class="close-button"><div class="icon icon-x"></div></div></div><div class="card-body"><div class="search-count"><span data-i18n="search.total">共</span><span id="search-count-num">0</span><span data-i18n="search.counts">条搜索结果。</span></div><div class="search-result" id="search-result"></div></div></div></div></body></html>
