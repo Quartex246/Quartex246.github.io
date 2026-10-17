@@ -1,0 +1,103 @@
+<html lang="zh-cn"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="一篇关于规格驱动开发（SDD）的笔记：从在 AI 辅助下开发音游的经历谈起，介绍 SDD 的「指定—计划—任务—实现」四阶段及各阶段产出的文档，并记录 Compact、视觉参考、让 AI 主动提问等 AI 协作实战注意事项。"/><title>笔记：开发流程（SDD）
+-
+Blog By Quartex</title><link rel="icon" href="/img/favicon.ico"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/helpers.css">
+
+<script src="/js/clipboard/clipboard.min.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+<script async="async" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="loading-wrapper" data-loading="data-loading"><div class="loading"><span></span><span></span><span></span></div></div><div class="page" data-filter="data-filter"><div class="head" data-show="data-show"><header class="head-header"><div class="head-author"><a class="head-author-link" href="/">Blog By Quartex</a></div><div class="head-right"><button class="bar-wrap" id="bar-wrap-toggle" title="菜单按钮"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button><div class="head-item"><a class="search-button head-item-link"><span data-i18n="nav.search">搜索</span>
+<i class="icon icon-search"></i></a></div><div class="head-item"><a class="head-item-link" href="/about" data-i18n-link="关于"><span data-i18n-menu="关于">关于</span></a></div><div class="head-item"><button class="lang-toggle head-item-link">EN</button></div></div></header>
+<div class="menubar-head" id="menubar"><ul class="menubar-ul"><li class="menubar-item" data-border="data-border"></li><li class="menubar-item"><i class="icon icon-archive"></i>
+<a class="menubar-link" href="/archives"><span data-i18n-menu="Archives">Archives</span></a></li><li class="menubar-item" data-border="data-border"></li><li class="menubar-item"><a class="menubar-link" href="/about" data-i18n-link="关于"><span data-i18n-menu="关于">关于</span></a></li></ul><div class="menu-search-box search-button"><div data-i18n="nav.search">搜索</div>
+<i class="icon icon-search"></i></div><div class="menubar-item"><button class="lang-toggle head-item-link">EN</button></div></div></div><div class="main" data-page="post"><article class="post" id="post" data-lang="zh-cn" data-lang-alt-url="/2026/10/14/en/AboutSDD/"><header class="post-head"><h1 class="post-title"><a class="title" href="/2026/10/14/zh-cn/AboutSDD/">笔记：开发流程（SDD）</a></h1></header><div class="post-meta"><div class="post-date"><time class="post-time" itemprop="datePublished" title="2026-10-15 00:00:00" datetime="2026-10-14T16:00:00.000Z">2026-10-15</time></div>|
+<div class="post-tag"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul></div>
+<div class="post-visit"><span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span><span data-i18n="article.hits">访问</span></span></div></div><div class="post-info"><div class="post-word-count">本文共1,608字。</div>
+</div><div class="article-entry" itemprop="articleBody"><blockquote>
+<p>我今天学到新东西了</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近用AI做出来了一个之前构想的音游，不得不感叹在如今AI大行其道的环境下，在创作方面我们可能不止需要注意力，还需要创造力了。个人只要有想法都可以成为创作者和开发者</p>
+<p>唯一的问题是他思考了两个小时才写出来，看了下思考过程有很多冗余。我在制作该游戏用了GLM 5.3 Flash编程，DeepSeek 4.1 Flash做善后。</p>
+<p>Flash模型已经如此，如果用的是大的模型会很浪费token，所以不得不反思是不是哪里出了问题。</p>
+<p>昨天将我的demo发到群里之后和群友聊了一下，记录一下聊天记录讨论到的内容</p>
+<p>现在我在让openspec写我的需求，就顺便写一下所学到的东西</p>
+<h2 id="SDD"><a href="#SDD" class="headerlink" title="SDD"></a>SDD</h2><h3 id="什么是SDD"><a href="#什么是SDD" class="headerlink" title="什么是SDD"></a>什么是SDD</h3><blockquote>
+<p><strong>规格驱动开发（Spec-Driven Development, SDD）</strong> 是一种以“规格说明”为核心驱动力的软件开发方法。</p>
+<p>它强调在编写任何代码之前，先编写一份清晰、完整、无歧义的规格说明，然后将这份规格作为唯一的“真相来源”（Single Source of Truth），指导后续的技术设计、任务拆解和代码实现。</p>
+<p>这种方法特别适合与 AI 辅助编程工具结合使用，能有效避免“凭感觉编码”（Vibe Coding）带来的不确定性和返工。</p>
+</blockquote>
+<p>上面那段是AI告诉我的，也就是说，<strong>写几个规格说明文件来防止AI乱搞</strong>。</p>
+<p>我感觉这也算prompt engineering的范畴了，因为本质上他和CLAUDE.md的约束文件是一样的。只不过是AI来帮我写prompt，而且是写多个在不同发展阶段的文件。而我需要做的只是给他一个大概的指令</p>
+<p>考虑到我自己应该写不出个什么东西出来，所以在群友的推荐下，我下载了一个openspec，他是一个轻量化的spec生成文件，并且可以调用我的tools，仅靠描述就帮我生成一份细致的spec</p>
+<h3 id="四个阶段"><a href="#四个阶段" class="headerlink" title="四个阶段"></a>四个阶段</h3><p>SDD分为四个阶段，<strong>指定——计划——任务——实现</strong></p>
+<h4 id="指定（Specify）"><a href="#指定（Specify）" class="headerlink" title="指定（Specify）"></a>指定（Specify）</h4><p><strong>你要做什么？</strong></p>
+<p>这就是这个阶段需要考虑的。</p>
+<p>我要做什么？我想做个游戏，他应该有什么功能，他的基本思想是什么。</p>
+<p>下面这个是一个用AI写的示例</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 提案：创建基础节奏游戏</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 背景</span></span><br><span class="line">希望开发一款轻量级网页音乐游戏，玩家通过键盘与音乐节奏互动。</span><br><span class="line"></span><br><span class="line"><span class="section">## 目标</span></span><br><span class="line"><span class="bullet">-</span> 实现一个下落式音符的节奏游戏</span><br><span class="line"><span class="bullet">-</span> 支持键盘操作（D、F、J、K 四键）</span><br><span class="line"><span class="bullet">-</span> 根据击打准确度进行判定和计分</span><br><span class="line"></span><br><span class="line"><span class="section">## 范围</span></span><br><span class="line"><span class="strong">**包含：**</span></span><br><span class="line"><span class="bullet">-</span> 一首内置练习曲目</span><br><span class="line"><span class="bullet">-</span> 基础的音符下落动画</span><br><span class="line"><span class="bullet">-</span> 判定系统（Perfect / Good / Miss）</span><br><span class="line"><span class="bullet">-</span> 分数与连击显示</span><br><span class="line"></span><br><span class="line"><span class="strong">**不包含：**</span></span><br><span class="line"><span class="bullet">-</span> 歌曲选择界面</span><br><span class="line"><span class="bullet">-</span> 在线排行榜</span><br><span class="line"><span class="bullet">-</span> 自定义谱面导入</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，他给出了</p>
+<p>每个阶段都会有一份markdown文档作为约束的具象化。例如在这一个阶段将会生成一个<code>proposal.md</code>的文档，</p>
+<h4 id="计划（Plan）"><a href="#计划（Plan）" class="headerlink" title="计划（Plan）"></a>计划（Plan）</h4><p>在这一阶段，需要明确的是<strong>技术方案</strong>，例如基于什么技术栈，采用什么架构。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 技术设计：基础节奏游戏</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 架构概述</span></span><br><span class="line"><span class="bullet">-</span> 使用 HTML5 Canvas 渲染游戏画面</span><br><span class="line"><span class="bullet">-</span> 使用 Web Audio API 加载和播放音乐</span><br><span class="line"><span class="bullet">-</span> 使用 requestAnimationFrame 驱动游戏主循环</span><br><span class="line"></span><br><span class="line"><span class="section">## 技术栈</span></span><br><span class="line"><span class="bullet">-</span> 语言：JavaScript (ES6+)</span><br><span class="line"><span class="bullet">-</span> 渲染：Canvas 2D</span><br><span class="line"><span class="bullet">-</span> 音频：Web Audio API</span><br><span class="line"><span class="bullet">-</span> 测试：Playwright (E2E)</span><br><span class="line"></span><br><span class="line"><span class="section">## 关键设计决策</span></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**音符轨道**</span>：4 条垂直轨道，分别对应 D、F、J、K 键</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**判定窗口**</span>：Perfect ±50ms，Good ±100ms，超过 100ms 为 Miss</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**时间同步**</span>：使用 AudioContext.currentTime 作为唯一时间源</span><br></pre></td></tr></table></figure>
+
+<p>生成的产物可能叫<code>plan.md</code>或<code>design.md</code></p>
+<h4 id="任务（Tasks）"><a href="#任务（Tasks）" class="headerlink" title="任务（Tasks）"></a>任务（Tasks）</h4><p>将项目分解成一个个<strong>小的任务</strong>。每个任务都应该足够小，以便能够独立开发和测试。</p>
+<p>产出物是一份有序的任务清单 <code>tasks.md</code>，它指导着后续的编码工作</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 实现任务</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> [ ] 1. 搭建 Canvas 画布和 4 条轨道的基础渲染</span><br><span class="line"><span class="bullet">-</span> [ ] 2. 实现 Web Audio API 加载和播放音乐</span><br><span class="line"><span class="bullet">-</span> [ ] 3. 实现音符数据结构与下落逻辑</span><br><span class="line"><span class="bullet">-</span> [ ] 4. 实现键盘输入监听与判定逻辑</span><br><span class="line"><span class="bullet">-</span> [ ] 5. 实现分数、连击和判定结果的 UI 显示</span><br><span class="line"><span class="bullet">-</span> [ ] 6. 编写 Playwright E2E 测试，覆盖 Perfect / Good / Miss 场景</span><br></pre></td></tr></table></figure>
+<h4 id="实现（Implementation）"><a href="#实现（Implementation）" class="headerlink" title="实现（Implementation）"></a>实现（Implementation）</h4><p>依据规格、计划和任务清单进行代码编写。每完成一个任务，都需要对照最初的规格进行验证，确保实现完全符合预期。产出物是经过测试、满足原始需求的可用代码。</p>
+<p>这一阶段将不会有产物，而是根据之前所给出的<code>tasks.md</code>进行逐一核对</p>
+<h2 id="软件开发注意"><a href="#软件开发注意" class="headerlink" title="软件开发注意"></a>软件开发注意</h2><h3 id="Compact"><a href="#Compact" class="headerlink" title="Compact"></a>Compact</h3><p>考虑到AI有上下文，compact确实是一个很有用的功能。如果不进行压缩，那么过长的上下文会拖慢AI思考速度，浪费记忆，还会遇到上下文污染。在实际的操作时，我就遇到了在思考后期思考已经思考过的内容的情况，这应该就是上下文污染</p>
+<p>之前我的方法一直都是在一个阶段停下，并让AI重新对思考内容进行总结，不过搜了一下才知道Claude Code原来点一下那个圈就可以总结了。</p>
+<h3 id="视觉参考"><a href="#视觉参考" class="headerlink" title="视觉参考"></a>视觉参考</h3><p>我的项目基于一个现有的项目，所以可以找一个可以识别图片的模型。反正都是造轮子，可以省点token</p>
+<h3 id="让AI问我"><a href="#让AI问我" class="headerlink" title="让AI问我"></a>让AI问我</h3><p>血泪教训，不要为了省事就开启Auto模式。我的Prompt中提到以一款已经发行的游戏的判定范围作为参考，结果不知道为什么，AI对于判定范围这件事纠结了很久很久。由于我开的自动模式，所以我是挺难在中间打断他并对他进行解释的。</p>
+<p>AI可能会很强大，但是如果问他过于细致或很有指向性的领域，他很可能无法反映过来或者理解</p>
+<p>所以之后如果我还要用AI做任务，一定要让他在他不懂的环节记得问我</p>
+<h3 id="skill"><a href="#skill" class="headerlink" title="skill"></a>skill</h3><p>待完善</p>
+</div></article><aside class="post-widget"><h4 data-i18n="toc.title">目录</h4><nav class="post-toc-wrap" id="post-toc"><ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%89%8D%E8%A8%80"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SDD"><span class="post-toc-number">2.</span> <span class="post-toc-text">SDD</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSDD"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">什么是SDD</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9B%9B%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">四个阶段</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%8C%87%E5%AE%9A%EF%BC%88Specify%EF%BC%89"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">指定（Specify）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%AE%A1%E5%88%92%EF%BC%88Plan%EF%BC%89"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">计划（Plan）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BB%BB%E5%8A%A1%EF%BC%88Tasks%EF%BC%89"><span class="post-toc-number">2.2.3.</span> <span class="post-toc-text">任务（Tasks）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%AE%9E%E7%8E%B0%EF%BC%88Implementation%EF%BC%89"><span class="post-toc-number">2.2.4.</span> <span class="post-toc-text">实现（Implementation）</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E6%B3%A8%E6%84%8F"><span class="post-toc-number">3.</span> <span class="post-toc-text">软件开发注意</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Compact"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">Compact</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%A7%86%E8%A7%89%E5%8F%82%E8%80%83"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">视觉参考</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AE%A9AI%E9%97%AE%E6%88%91"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">让AI问我</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#skill"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">skill</span></a></li></ol></li></ol></nav></aside></div><footer class="footer-nav"><div class="footer"><div class="back-top" id="back-top" title="Back to top"><i class="icon icon-chevron-bar-up"></i></div><div class="footer-content"><div class="footer-links"><div class="footer-links-column"><p><a title="友情链接" href="/friendlink" data-i18n-link="友情链接" data-i18n-menu="友情链接">友情链接</a></p></div><div class="footer-links-column"><p><a title="更新日志" href="/changelog" data-i18n-link="更新日志" data-i18n-menu="更新日志">更新日志</a></p></div></div><div><span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">?</span>
+PV
+</span><span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">?</span>
+UV</span></div>
+
+Copyright &copy;
+2026
+Quartex.
+
+Power by
+<a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>
+and
+<a href="https://github.com/Cerallin/hexo-theme-yuzu" target="_blank" rel="external nofollow" title="v3.2.7">Theme Yuzu</a>.</div></div></footer>
+<script>window.config = {
+  url_root: '/',
+  meta_path: 'meta.json',
+};
+</script>
+<script src="/js/theme/back-to-top.js"></script>
+
+
+<script src="/js/theme/clipboard.js"></script>
+
+
+<script src="/js/theme/loading.js"></script>
+
+
+<script src="/js/theme/navbar.js"></script>
+
+<script src="/js/theme/search.js"></script>
+
+<script src="/js/theme/toc.js"></script>
+<script>window.onload = function () {
+  for (const moduleName in Theme) {
+    const module = Theme[moduleName];
+    module.register();
+  }
+};
+</script>
+<script src="/js/i18n.js"></script>
+</div><div class="search-modal" id="search-modal"><div class="card"><div class="card-head"><div class="search-box"><input class="search-input" id="search-input" placeholder="搜索" data-i18n="search.search"/><div class="search-button" id="search-button"><div class="icon icon-search"></div></div></div><div class="close-button"><div class="icon icon-x"></div></div></div><div class="card-body"><div class="search-count"><span data-i18n="search.total">共</span><span id="search-count-num">0</span><span data-i18n="search.counts">条搜索结果。</span></div><div class="search-result" id="search-result"></div></div></div></div></body></html>
