@@ -1,0 +1,146 @@
+<html lang="zh-cn"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="以 Lenovo ThinkPad Chromebook 13 为例，详细展示如何解除写保护、刷入第三方 BIOS 并安装 Windows 10 LTSC，同时附有其他机型的参考方法；刷机有风险，动手前请务必确认设备兼容性。"/><link rel="canonical" href="https://quartexounds.xyz/2026/11/23/zh-cn/localsync/"/><meta property="og:locale" content="zh_CN"/><meta property="og:url" content="https://quartexounds.xyz/2026/11/23/zh-cn/localsync/"/><title>基于NextCloud实现的SuperProductivity同步
+-
+Blog By Quartex</title><link rel="icon" href="/img/favicon.ico"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/helpers.css">
+
+<script src="/js/clipboard/clipboard.min.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+<script async="async" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="loading-wrapper" data-loading="data-loading"><div class="loading"><span></span><span></span><span></span></div></div><div class="page" data-filter="data-filter"><div class="head" data-show="data-show"><header class="head-header"><div class="head-author"><a class="head-author-link" href="/">Blog By Quartex</a></div><div class="head-right"><button class="bar-wrap" id="bar-wrap-toggle" title="菜单按钮" data-i18n-title="nav.toggle_bar"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button><div class="head-item"><a class="search-button head-item-link"><span data-i18n="nav.search">搜索</span>
+<i class="icon icon-search"></i></a></div><div class="head-item"><a class="head-item-link" href="/about" data-i18n-link="关于"><span data-i18n-menu="关于">关于</span></a></div><div class="head-item"><button class="lang-toggle head-item-link">EN</button></div></div></header>
+<div class="menubar-head" id="menubar"><ul class="menubar-ul"><li class="menubar-item" data-border="data-border"></li><li class="menubar-item"><i class="icon icon-archive"></i>
+<a class="menubar-link" href="/archives" data-i18n-link="Archives"><span data-i18n-menu="Archives">归档</span></a></li><li class="menubar-item" data-border="data-border"></li><li class="menubar-item"><a class="menubar-link" href="/about" data-i18n-link="关于"><span data-i18n-menu="关于">关于</span></a></li></ul><div class="menu-search-box search-button"><div data-i18n="nav.search">搜索</div>
+<i class="icon icon-search"></i></div><div class="menubar-item"><button class="lang-toggle head-item-link">EN</button></div></div></div><div class="main" data-page="post" data-page-lang="zh-cn" data-lang-alt-url=""><article class="post" id="post" data-lang="zh-cn" data-lang-alt-url=""><header class="post-head"><h1 class="post-title"><a class="title" href="/2026/11/23/zh-cn/localsync/">基于NextCloud实现的SuperProductivity同步</a></h1></header><div class="post-meta"><div class="post-date"><time class="post-time" itemprop="datePublished" title="2026-11-23 16:00:00" datetime="2026-11-23T16:00:00.000Z">2026-11-23</time></div>|
+<div class="post-tag"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%B7%E6%9C%BA/" rel="tag">刷机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li></ul></div>
+<div class="post-visit"><span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span><span data-i18n="article.hits">访问</span></span></div></div><div class="post-info"><div class="post-word-count">本文共2,807字。</div>
+</div><div class="article-entry" itemprop="articleBody"><blockquote>
+<p>这个服务器我搞了三年，我X</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>其实我感觉这种文章应该烂大街了，但是我突然想到欸我还有个博客哦，刚好这个月的素材还没有写，那就赶紧写上吧</p>
+<p>为什么要写？主要是因为Microsoft Todo（后文简称MSTD），这个我一直在用但是却不常用的清单软件宣布要停止服务了。考虑到我还有一堆形式主义的事情要搞，所以我需要找一个新的待办清单软件</p>
+<p>现如今AI肯定是有能力来复现一款像MSTD那样的清爽又直观的软件的，而且如果经济条件允许，你甚至可以复刻全平台版本。但最大的问题在于这种自制版多设备同步不是特别方便，所以我去找有没有现成的开源方案，最后暂时先选择了Super Productivity（后文简称SP）</p>
+<p>SP的功能很丰富，而且整体界面和MSTD差不多清爽，唯一的问题是他自己的同步服务SuperSync的验证邮箱不知为何迟迟无法发到我的邮箱中，所以为了继续浪费我的时间，我决定尝试自己搭一个小的服务器来同步</p>
+<p>用来作为服务器载体的小主机是一个闲置的电脑棒。高中时我朋友用这个东西加一对作为赠品的联想键鼠打通了《蔚蓝》。机器只有2+32GB的存储搭配，用的是英特尔Z3735F。接口也十分简洁——只有有一个标准A口，一个供电MicroUSB，数据传输MicroUSB和一个TF卡口</p>
+<p>这款机器的处理器是最奇异搞笑的。理论上它支持64位的系统，但他却用着32位的引导。这意味着有相当一部分现代系统甚至无法被正常引导，除非在镜像中加入对应的引导文件。</p>
+<p>即使加入了引导文件成功安装，也不一定说明能支持系统正常使用。这既可能是架构的问题，也可能是性能的问题。FydeOS轻量版不支持打开安卓虚拟机，浏览器但凡多打开两个标签页就会开始卡。Windows最多只支持32位8.1，但凡升个级就能卡的无法使用。我原先想把它作为一个小的电视盒子，结果Android X86只能在安装时被引导，之后就会跳转到GRUB。Android TV呢？他不支持5Ghz的WIFI，我连安个软件都不行</p>
+<p>总之，作为从那个寨板黄金年代过来的U，也许只有安装Windows 8.1才是他最好的归宿吧。</p>
+<p>跑题了，反正在被这个设备折磨了良久之后，我决定还是为这个设备刷入Linux，结束折腾他的漫漫长路。</p>
+<p>接下来的内容都是让AI写的，不过为了加点人情味，我会根据情况自己加点东西</p>
+<hr>
+<h2 id="部署-Nextcloud（Debian-12-LAMP）"><a href="#部署-Nextcloud（Debian-12-LAMP）" class="headerlink" title="部署 Nextcloud（Debian 12 + LAMP）"></a>部署 Nextcloud（Debian 12 + LAMP）</h2><p>Z3735F 的 32 位 UEFI 引导问题需要在系统安装阶段解决，所以我选择的，或者说AI选择的，是Debian 12. 我试过了，但凡现代点的Linux都无法安装，Debian 13即使加入了32位引导文件也会被引导到GRUB.</p>
+<p>如果有条件一定要选择完整的安装镜像，而不是什么网络安装版。这东西我搞了一下午，百分之五十都花在了下载东西上。</p>
+<p>装好 Debian 12 并确认 SSH 可远程登录后，按以下顺序操作。</p>
+<p><strong>1. 更新系统并安装 Web 栈</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update &amp;&amp; <span class="built_in">sudo</span> apt upgrade -y</span><br><span class="line"><span class="built_in">sudo</span> apt install apache2 libapache2-mod-php -y</span><br><span class="line"><span class="built_in">sudo</span> apt install php php-gd php-json php-mysql php-curl php-mbstring php-intl php-imagick php-xml php-zip php-apcu php-redis php-bcmath php-gmp -y</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart apache2</span><br></pre></td></tr></table></figure>
+<p>Nextcloud 对 PHP 扩展有明确要求，<code>php-apcu</code> 和 <code>php-redis</code> 对小内存设备尤其重要，它们能用内存缓存显著降低数据库压力。</p>
+<p><strong>2. 安装并配置 MariaDB</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install mariadb-server mariadb-client -y</span><br><span class="line"><span class="built_in">sudo</span> mysql_secure_installation</span><br></pre></td></tr></table></figure>
+<p>在 MariaDB 提示符中创建专用数据库和用户：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE nextcloud <span class="keyword">CHARACTER SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;nextclouduser&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;你的强密码&#x27;</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> nextcloud.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;nextclouduser&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line">EXIT;</span><br></pre></td></tr></table></figure>
+<p><code>utf8mb4</code> 字符集是 Nextcloud 的推荐配置，可以避免后续出现中文或 emoji 存储异常。</p>
+<p><strong>3. 下载并放置 Nextcloud</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /tmp</span><br><span class="line">wget https://download.nextcloud.com/server/releases/latest.zip</span><br><span class="line"><span class="built_in">sudo</span> apt install unzip -y</span><br><span class="line"><span class="built_in">sudo</span> unzip latest.zip -d /var/www/html/</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> -R www-data:www-data /var/www/html/nextcloud/</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> -R 755 /var/www/html/nextcloud/</span><br></pre></td></tr></table></figure>
+<p>务必从官方源下载，权限设置让 Apache 的 <code>www-data</code> 用户拥有读写权，是 Nextcloud 正常运行的前提。</p>
+<p>不过如果不幸的，你居住在一个直连下载太慢的地方，而且你的机器不足以支持你再安装一个加速器，可以从GitHub直接下载现成的包，然后拷到你的服务器中，直接解压到需要的位置里就行了</p>
+<p><strong>4. 配置 Apache</strong><br>创建虚拟主机文件 <code>/etc/apache2/sites-available/nextcloud.conf</code>，内容如下（如果没有域名，<code>ServerName</code> 可以直接写小主机的内网 IP）：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;VirtualHost *<span class="number">:80</span>&gt;</span></span><br><span class="line">    <span class="attribute">DocumentRoot</span> /var/www/html/nextcloud/</span><br><span class="line">    <span class="attribute">ServerName</span> 你的内网IP或域名</span><br><span class="line"></span><br><span class="line">    <span class="section">&lt;Directory /var/www/html/nextcloud/&gt;</span></span><br><span class="line">        <span class="attribute">Options</span> +FollowSymlinks</span><br><span class="line">        <span class="attribute">AllowOverride</span> <span class="literal">All</span></span><br><span class="line">        <span class="attribute">Require</span> <span class="literal">all</span> granted</span><br><span class="line">        <span class="section">&lt;IfModule mod_dav.c&gt;</span></span><br><span class="line">            <span class="attribute">Dav</span> <span class="literal">off</span></span><br><span class="line">        <span class="section">&lt;/IfModule&gt;</span></span><br><span class="line">        <span class="attribute">SetEnv</span> HOME /var/www/html/nextcloud</span><br><span class="line">        <span class="attribute">SetEnv</span> HTTP_HOME /var/www/html/nextcloud</span><br><span class="line">    <span class="section">&lt;/Directory&gt;</span></span><br><span class="line"><span class="section">&lt;/VirtualHost&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后启用必要模块和站点：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> a2enmod rewrite headers <span class="built_in">env</span> <span class="built_in">dir</span> mime</span><br><span class="line"><span class="built_in">sudo</span> a2ensite nextcloud.conf</span><br><span class="line"><span class="built_in">sudo</span> a2dissite 000-default.conf</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart apache2</span><br></pre></td></tr></table></figure>
+<p><code>rewrite</code> 和 <code>headers</code> 是 Nextcloud 路由和安全的必需模块。</p>
+<p><strong>5. 通过浏览器完成 Nextcloud 安装向导</strong><br>在局域网内另一台电脑的浏览器中访问 <code>http://小主机IP</code>，按向导填写：</p>
+<ul>
+<li><strong>管理员账号</strong>：自行设定。</li>
+<li><strong>数据文件夹</strong>：保持默认。</li>
+<li><strong>数据库</strong>：选择 <strong>MySQL&#x2F;MariaDB</strong>，用户 <code>nextclouduser</code>，密码填上一步设置的，数据库名 <code>nextcloud</code>，主机 <code>localhost</code>。<br>完成后 Nextcloud 即可登录使用。</li>
+</ul>
+<h2 id="在-Nextcloud-中创建“应用密码”"><a href="#在-Nextcloud-中创建“应用密码”" class="headerlink" title="在 Nextcloud 中创建“应用密码”"></a>在 Nextcloud 中创建“应用密码”</h2><p>不要用 Nextcloud 主登录密码去配置 Super Productivity。应用密码可以独立撤销、权限受限，也更适合第三方客户端。</p>
+<ol>
+<li>登录 Nextcloud 网页界面，点击右上角头像 → <strong>个人设置 (Personal settings)</strong>。</li>
+<li>左侧菜单选择 <strong>安全 (Security)</strong>。</li>
+<li>滚动到页面底部的 <strong>应用密码 (App passwords)</strong> 区域。</li>
+<li>输入一个易识别的名称（例如 <code>Super Productivity</code>），点击 <strong>创建新的应用密码</strong>。</li>
+<li><strong>立即复制</strong>生成的密码（格式类似 <code>xxxxx-xxxxx-xxxxx-xxxxx-xxxxx</code>），关闭页面后它不会再完整显示。</li>
+</ol>
+<h2 id="配置-Super-Productivity-同步（二选一）"><a href="#配置-Super-Productivity-同步（二选一）" class="headerlink" title="配置 Super Productivity 同步（二选一）"></a>配置 Super Productivity 同步（二选一）</h2><p>Super Productivity 连接 Nextcloud 有两条路径，用途不同，按需选择。</p>
+<h4 id="路径-A：文件同步（同步全部数据，推荐日常使用）"><a href="#路径-A：文件同步（同步全部数据，推荐日常使用）" class="headerlink" title="路径 A：文件同步（同步全部数据，推荐日常使用）"></a>路径 A：文件同步（同步全部数据，推荐日常使用）</h4><p>这种方式通过 Nextcloud 的 WebDAV 文件接口，同步 Super Productivity 的<strong>完整数据</strong>（任务、项目、时间追踪、设置等），适合在多台设备间无缝接续。</p>
+<ol>
+<li>打开 Super Productivity，进入 <strong>设置 (Settings) → 同步与备份 (Sync &amp; Backup)</strong>。</li>
+<li>同步提供商选择 <strong>Nextcloud</strong>。</li>
+<li>填写：<ul>
+<li><strong>Server URL</strong>：你的 Nextcloud 地址，例如 <code>http://小主机IP</code> 或 <code>https://你的域名</code>。</li>
+<li><strong>Username</strong>：Nextcloud 用户名。</li>
+<li><strong>App Password</strong>：第二步生成的应用密码。</li>
+</ul>
+</li>
+<li><strong>Sync Folder Path</strong> 可以留空，应用会自动使用默认路径；如果希望指定文件夹，填写的是 <strong>相对于 WebDAV 根目录的路径</strong>，例如 <code>/super-productivity</code>，而不是服务器上的绝对路径。</li>
+<li>按需设置同步间隔，或勾选“仅手动同步”。保存后即可生效。</li>
+</ol>
+<blockquote>
+<p><strong>一个 CORS 提醒</strong>：如果你使用的是 Super Productivity 的<strong>网页版</strong>（而不是桌面客户端），Nextcloud 默认可能拦截来自 <code>https://app.super-productivity.com</code> 的跨域请求。桌面版和 Android 客户端通常不受此限制。如果确实需要网页版同步，可以在 Nextcloud 中安装 <code>webapppassword</code> 应用，并将上述地址加入白名单。</p>
+</blockquote>
+<h4 id="路径-B：CalDAV-Todo-同步（与-Nextcloud“任务”应用互通）"><a href="#路径-B：CalDAV-Todo-同步（与-Nextcloud“任务”应用互通）" class="headerlink" title="路径 B：CalDAV Todo 同步（与 Nextcloud“任务”应用互通）"></a>路径 B：CalDAV Todo 同步（与 Nextcloud“任务”应用互通）</h4><p>如果你希望 Super Productivity 中的待办事项能出现在 Nextcloud 自带的<strong>任务 (Tasks)</strong> 应用中，或者在手机原生任务应用中查看，就使用 CalDAV。它同步的是标准的 <code>VTODO</code> 格式，<strong>不是全量数据</strong>，时间追踪记录等不会出现在 Nextcloud 侧。</p>
+<ol>
+<li>在 Super Productivity 中打开 <strong>问题提供器面板 (Issue Provider panel)</strong>，点击 <strong>“+”</strong> → 选择 <strong>CalDAV Todo</strong>。</li>
+<li><strong>CalDAV URL</strong>：填写<strong>账户级基地址</strong>，而不是某个日历的地址：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://你的Nextcloud地址/remote.php/dav/calendars/你的用户名</span><br></pre></td></tr></table></figure></li>
+<li><strong>日历名称 (Calendar Name)</strong>：填写 Nextcloud “任务”应用中你要同步的那个<strong>列表名称</strong>。匹配是精确的，包括大小写和空格。如果显示名称匹配不上，应用会尝试用日历 URL 的最后一段作为名称。</li>
+<li><strong>用户名和密码</strong>：用户名填 Nextcloud 用户名，密码填<strong>应用密码</strong>。</li>
+<li>点击 <strong>测试连接</strong>，确认成功。</li>
+<li>在 <strong>高级配置 (Advanced Config)</strong> 中，选择一个 <strong>默认项目 (Default Super Productivity Project)</strong>，并确保 <strong>“自动导入到默认项目”</strong> 处于勾选状态。<strong>这一步不能省</strong>：如果不选项目，任务只会出现在集成面板的列表里，不会自动进入你的项目视图。</li>
+</ol>
+<p>我这里选择的是方案A。直到安装完了之后我才意识到NextCloud本质上就是一个网盘</p>
+<h2 id="Z3735F-2GB-必须做的关键优化"><a href="#Z3735F-2GB-必须做的关键优化" class="headerlink" title="Z3735F (2GB) 必须做的关键优化"></a>Z3735F (2GB) 必须做的关键优化</h2><p>以下三件事直接决定 Nextcloud 在你的设备上是否“能用”，建议在部署完成后立即处理。</p>
+<p><strong>① 启用 ZRAM（优先级最高）</strong><br>ZRAM 在内存中创建压缩交换空间，对 2GB 设备的效果远好于传统 swap 分区，能显著降低因内存不足导致服务崩溃的概率，同时减少对 32GB eMMC 的读写磨损。</p>
+<p>在 Debian 12 上安装并启用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install zram-tools -y</span><br></pre></td></tr></table></figure>
+<p>安装后通常会自动启用。可以通过 <code>zramctl</code> 或 <code>swapon --show</code> 确认 ZRAM 设备已经作为交换空间生效。</p>
+<p><strong>② 限制 PHP 内存上限</strong><br>Nextcloud 默认的 PHP <code>memory_limit</code> 可能设置得较高，在 2GB 总内存下必须收紧，防止单个 PHP 进程吃掉过多资源。编辑对应的 <code>php.ini</code>（Apache 模式下通常是 <code>/etc/php/8.2/apache2/php.ini</code>）：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">memory_limit</span> = <span class="number">512</span>M</span><br><span class="line"><span class="attr">opcache.enable</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">opcache.memory_consumption</span>=<span class="number">128</span></span><br></pre></td></tr></table></figure>
+<p><code>512M</code> 是 2GB 内存环境下的推荐值，OPcache 则能用少量内存换取显著的 PHP 执行速度提升。修改后重启 Apache：<code>sudo systemctl restart apache2</code>。</p>
+<p><strong>③ 启用 Nextcloud 本地内存缓存</strong><br>编辑 Nextcloud 的 <code>config.php</code>（路径通常是 <code>/var/www/html/nextcloud/config/config.php</code>），在配置数组中添加：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;memcache.local&#x27;</span> =&gt; <span class="string">&#x27;\OC\Memcache\APCu&#x27;</span>,</span><br></pre></td></tr></table></figure>
+<p>APCu 缓存能有效降低小内存设备上数据库的查询压力，是 Nextcloud 官方推荐的基础优化项。</p>
+<p>修改文件如果不知道要改哪里，如果用的是nano可以按Ctrl + W来搜索相对应的内容</p>
+<p>完成这三步之后，你的 Z3735F 就具备了一台“可用状态”的 Nextcloud 服务器的基础。Super Productivity 的同步负载本身很轻，真正需要关注的是 Nextcloud 核心服务在 2GB 内存下的稳定性，而 ZRAM + PHP 内存收紧正是为了解决这个问题。</p>
+<h2 id="公网穿透：使用Tailscale"><a href="#公网穿透：使用Tailscale" class="headerlink" title="公网穿透：使用Tailscale"></a>公网穿透：使用Tailscale</h2></div></article><aside class="post-widget"><h4 data-i18n="toc.title">目录</h4><nav class="post-toc-wrap" id="post-toc"><ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%89%8D%E8%A8%80"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2-Nextcloud%EF%BC%88Debian-12-LAMP%EF%BC%89"><span class="post-toc-number">2.</span> <span class="post-toc-text">部署 Nextcloud（Debian 12 + LAMP）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9C%A8-Nextcloud-%E4%B8%AD%E5%88%9B%E5%BB%BA%E2%80%9C%E5%BA%94%E7%94%A8%E5%AF%86%E7%A0%81%E2%80%9D"><span class="post-toc-number">3.</span> <span class="post-toc-text">在 Nextcloud 中创建“应用密码”</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE-Super-Productivity-%E5%90%8C%E6%AD%A5%EF%BC%88%E4%BA%8C%E9%80%89%E4%B8%80%EF%BC%89"><span class="post-toc-number">4.</span> <span class="post-toc-text">配置 Super Productivity 同步（二选一）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%B7%AF%E5%BE%84-A%EF%BC%9A%E6%96%87%E4%BB%B6%E5%90%8C%E6%AD%A5%EF%BC%88%E5%90%8C%E6%AD%A5%E5%85%A8%E9%83%A8%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%8E%A8%E8%8D%90%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8%EF%BC%89"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">路径 A：文件同步（同步全部数据，推荐日常使用）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%B7%AF%E5%BE%84-B%EF%BC%9ACalDAV-Todo-%E5%90%8C%E6%AD%A5%EF%BC%88%E4%B8%8E-Nextcloud%E2%80%9C%E4%BB%BB%E5%8A%A1%E2%80%9D%E5%BA%94%E7%94%A8%E4%BA%92%E9%80%9A%EF%BC%89"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">路径 B：CalDAV Todo 同步（与 Nextcloud“任务”应用互通）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Z3735F-2GB-%E5%BF%85%E9%A1%BB%E5%81%9A%E7%9A%84%E5%85%B3%E9%94%AE%E4%BC%98%E5%8C%96"><span class="post-toc-number">5.</span> <span class="post-toc-text">Z3735F (2GB) 必须做的关键优化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%AC%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%9A%E4%BD%BF%E7%94%A8Tailscale"><span class="post-toc-number">6.</span> <span class="post-toc-text">公网穿透：使用Tailscale</span></a></li></ol></nav></aside></div><footer class="footer-nav"><div class="footer"><div class="back-top" id="back-top" title="返回顶部" data-i18n-title="footer.back_to_top"><i class="icon icon-chevron-bar-up"></i></div><div class="footer-content"><div class="footer-links"><div class="footer-links-column"><p><a title="友情链接" href="/friendlink" data-i18n-link="友情链接" data-i18n-menu="友情链接">友情链接</a></p></div><div class="footer-links-column"><p><a title="更新日志" href="/changelog" data-i18n-link="更新日志" data-i18n-menu="更新日志">更新日志</a></p></div></div><div><span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">?</span>
+PV
+</span><span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">?</span>
+UV</span></div>
+
+Copyright &copy;
+2026
+Quartex.
+<span data-i18n="footer.powered_by">由</span><a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a><span data-i18n="footer.and">和</span><a href="https://github.com/Cerallin/hexo-theme-yuzu" target="_blank" rel="external nofollow" title="v3.2.7">Theme Yuzu</a><span data-i18n="footer.suffix">驱动。</span></div></div></footer>
+<script>window.config = {
+  url_root: '/',
+  meta_path: 'meta.json',
+};
+</script>
+<script src="/js/theme/back-to-top.js"></script>
+
+
+<script src="/js/theme/clipboard.js"></script>
+
+
+<script src="/js/theme/loading.js"></script>
+
+
+<script src="/js/theme/navbar.js"></script>
+
+<script src="/js/theme/search.js"></script>
+
+<script src="/js/theme/toc.js"></script>
+<script>window.onload = function () {
+  for (const moduleName in Theme) {
+    const module = Theme[moduleName];
+    module.register();
+  }
+};
+</script>
+<script src="/js/i18n.js"></script>
+</div><div class="search-modal" id="search-modal"><div class="card"><div class="card-head"><div class="search-box"><input class="search-input" id="search-input" placeholder="搜索" data-i18n="search.search"/><div class="search-button" id="search-button"><div class="icon icon-search"></div></div></div><div class="close-button"><div class="icon icon-x"></div></div></div><div class="card-body"><div class="search-count"><span data-i18n="search.total">共</span><span id="search-count-num">0</span><span data-i18n="search.counts">条搜索结果。</span></div><div class="search-result" id="search-result"></div></div></div></div></body></html>
